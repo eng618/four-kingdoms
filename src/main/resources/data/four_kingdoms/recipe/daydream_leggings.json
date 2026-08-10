@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "DAD",
+    "D D",
+    "A A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "four_kingdoms:daydream_leggings"
+  }
+}
