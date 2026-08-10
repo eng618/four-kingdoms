@@ -75,7 +75,7 @@ dependencies {
     // NeoForge dependencies are added automatically by ModDevGradle
 }
 
-var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             neo_version            : neo_version,
@@ -87,10 +87,20 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_group_id           : mod_group_id
     ]
     inputs.properties replaceProperties
-    expand replaceProperties
-    from "src/main/resources"
-    into "build/resources/main"
-    matching('META-INF/neoforged.mods.toml')
+
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand replaceProperties
+    }
+}
+
+// Ensure resources (including neoforged.mods.toml) are copied into the classes directory for NeoForge dev launcher
+tasks.named('classes').configure {
+    doLast {
+        copy {
+            from sourceSets.main.output.resourcesDir
+            into sourceSets.main.java.classesDirectory
+        }
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
