@@ -59,6 +59,16 @@ public class ModCreativeTabs {
                         output.accept(ModItems.DAYDREAM_AXE.get());
                         output.accept(ModItems.DAYDREAM_SHOVEL.get());
                         output.accept(ModItems.DAYDREAM_HOE.get());
+
+                        // Infused Leathers
+                        output.accept(ModItems.AMETHYST_INFUSED_LEATHER.get());
+                        output.accept(ModItems.COPPER_INFUSED_LEATHER.get());
+                        output.accept(ModItems.DIAMOND_INFUSED_LEATHER.get());
+                        output.accept(ModItems.ECHO_INFUSED_LEATHER.get());
+                        output.accept(ModItems.GOLD_INFUSED_LEATHER.get());
+                        output.accept(ModItems.IRON_INFUSED_LEATHER.get());
+                        output.accept(ModItems.NETHERITE_INFUSED_LEATHER.get());
+                        output.accept(ModItems.QUARTZ_INFUSED_LEATHER.get());
                     })
                     .build());
 }

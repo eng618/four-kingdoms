@@ -100,4 +100,48 @@ public class ModItems {
     public static final DeferredItem<HoeItem> DAYDREAM_HOE = ITEMS.register("daydream_hoe",
             () -> new HoeItem(ModToolMaterials.DAYDREAM, new Item.Properties()
                     .attributes(HoeItem.createAttributes(ModToolMaterials.DAYDREAM, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // INFUSED LEATHERS (ARMOR CRAFTING MATERIALS)
+    // =========================================================================
+
+    /**
+     * Amethyst-Infused Leather - Specialized leather infused with amethyst essence.
+     */
+    public static final DeferredItem<Item> AMETHYST_INFUSED_LEATHER = ITEMS.registerSimpleItem("amethyst_infused_leather");
+
+    /**
+     * Copper-Infused Leather - Flexible leather infused with copper conductivity.
+     */
+    public static final DeferredItem<Item> COPPER_INFUSED_LEATHER = ITEMS.registerSimpleItem("copper_infused_leather");
+
+    /**
+     * Diamond-Infused Leather - High-durability leather infused with diamond resilience.
+     */
+    public static final DeferredItem<Item> DIAMOND_INFUSED_LEATHER = ITEMS.registerSimpleItem("diamond_infused_leather");
+
+    /**
+     * Echo-Infused Leather - Mystical leather infused with sculk and echo shards.
+     */
+    public static final DeferredItem<Item> ECHO_INFUSED_LEATHER = ITEMS.registerSimpleItem("echo_infused_leather");
+
+    /**
+     * Gold-Infused Leather - Gilded leather offering magical receptivity.
+     */
+    public static final DeferredItem<Item> GOLD_INFUSED_LEATHER = ITEMS.registerSimpleItem("gold_infused_leather");
+
+    /**
+     * Iron-Infused Leather - Reinforced leather hardened with iron plates.
+     */
+    public static final DeferredItem<Item> IRON_INFUSED_LEATHER = ITEMS.registerSimpleItem("iron_infused_leather");
+
+    /**
+     * Netherite-Infused Leather - Heavy-duty heat-resistant leather infused with netherite.
+     */
+    public static final DeferredItem<Item> NETHERITE_INFUSED_LEATHER = ITEMS.registerSimpleItem("netherite_infused_leather");
+
+    /**
+     * Quartz-Infused Leather - Crystal-infused leather with sharp energetic properties.
+     */
+    public static final DeferredItem<Item> QUARTZ_INFUSED_LEATHER = ITEMS.registerSimpleItem("quartz_infused_leather");
 }
