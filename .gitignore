@@ -68,6 +68,9 @@ Thumbs.db
 *.war
 *.ear
 
+# But keep the Gradle wrapper jar (required to run ./gradlew)
+!gradle/wrapper/gradle-wrapper.jar
+
 
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
