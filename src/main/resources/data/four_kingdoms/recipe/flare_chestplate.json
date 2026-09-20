@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "B B",
+    "III",
+    "IBI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "four_kingdoms:flare_chestplate"
+  }
+}

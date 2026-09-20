@@ -33,4 +33,34 @@
 
 ## Pending rows
 
-flare, crystal, speed, black, pearl, lazuli, leafy, sylvia, sunshine, forgotten_hero — fill per hero before coding (Phase 3–4).
+~~Nightmare~~ done. Flare done (below). Remaining Element + Forgotten — fill per hero before coding (Phase 3–4).
+
+## Flare (Phase 3 pilot — implemented, tinted placeholder art)
+
+| Slot | Value |
+|---|---|
+| Armor defense (H/C/L/B) | 3 / 7 / 5 / 3 (18 total, offense-skewed) |
+| Enchantability | 15 |
+| Toughness / KB resist | 1.5 / 0.0 |
+| Tool durability / speed / dmg | 1600 / 8.0 / +4.0 |
+| Repair | blaze_rod + iron_ingot |
+| Sword | 3.0 dmg, -2.4 speed (vanilla `SwordItem.createAttributes`) |
+| Set bonus | Additive roll → Fire Resistance I, 400t, every 400t (server only) |
+| Art status | Daydream art hue-shifted to blaze orange via script — replace with real Flare art when ready |
+
+## Proposed Element bonuses (awaiting approval — not implemented)
+
+Same additive roll (25% × pieces, 400t interval) unless noted. Counterpart should mirror the hero's element:
+
+| Hero | Proposal |
+|---|---|
+| crystal (ocean/trident) | Water Breathing + Dolphin's Grace, 400t |
+| speed (storm/longsword) | Speed I (or II) + Haste I, 400t |
+| black (shadow/blade) | Invisibility pulse 200t + Night Vision, 400t interval |
+| pearl (ender/scythe) | Slow Falling + reduced ender-pearl self-damage (custom: deny fall damage ticks on roll) |
+| lazuli (frost/sickle) | Slowness aura on attackers (Thorns-style via HurtEvent) or Frost Walker-style step bonus — TBD, needs design pick |
+| leafy (nature/spear) | Regeneration I + Saturation tick, 400t |
+| sylvia (royal/sword) | Hero of the Village-style discount is out of scope; propose Absorption II (4 hearts), 400t |
+| sunshine (light/sword) | Night Vision + Glowing cleanse (remove Darkness/Blindness on roll, mirroring Nightmare) |
+
+Confirm or revise these and I will batch the remaining 8 slices in the same Flare pattern.

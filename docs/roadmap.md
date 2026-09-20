@@ -29,18 +29,17 @@ Tick boxes here to track to a fully functional mod: custom armor + weapons + ene
 
 ## Phase 3 — Element Kingdom (9 heroes)
 
-Per hero (`element_01`…`element_09`), vertical slice:
+Pilot slice done in the Flare pattern (materials → items → lang → models → tinted placeholder textures → recipes → tab → bonus). Repeat per hero:
 
-* [ ] Roster row filled (name, element, repair, weapon)
-* [ ] `ModArmorMaterials` + `ModToolMaterials` entries + balance-table row
-* [ ] `ModItems` armor(4)+weapon+tools, lang, models, textures, recipes
-* [ ] `SetBonus` tick effect per hero
-* [ ] In-game check via `runClient`
+* [x] Flare (`flare_*`, Fire Resistance bonus, Element tab created)
+* [ ] Roster bonus approval for crystal / speed / black / pearl / lazuli / leafy / sylvia / sunshine (proposals in `reference/materials-balance.md`)
+* [ ] crystal, speed, black, pearl, lazuli, leafy, sylvia, sunshine vertical slices
+* [ ] In-game check via `runClient` per slice
 
 ## Phase 4 — Forgotten (1) + Wild (placeholder)
 
-* [ ] `forgotten_01` full slice (same as Phase 3)
-* [ ] `element_kingdom` + `forgotten_kingdom` creative tabs; `wild_kingdom` empty placeholder tab only
+* [ ] `forgotten_hero` full slice (same as Phase 3 pattern)
+* [x] `element_kingdom` creative tab (created with Flare); still need `forgotten_kingdom` tab + `wild_kingdom` empty placeholder
 
 ## Phase 5 — Weapons polish
 

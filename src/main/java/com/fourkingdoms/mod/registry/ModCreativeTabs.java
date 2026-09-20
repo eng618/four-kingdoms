@@ -17,6 +17,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
  * <h2>Current Creative Tabs</h2>
  * <ul>
  *   <li><b>Four Kingdoms: Dream Kingdom</b> - Contains all items, armor, weapons, and tools for Dream Kingdom characters.</li>
+ *   <li><b>Four Kingdoms: Element Kingdom</b> - Contains all items, armor, weapons, and tools for Element Kingdom characters.</li>
  * </ul>
  *
  * <h2>Adding New Kingdom Tabs</h2>
@@ -79,6 +80,26 @@ public class ModCreativeTabs {
                         output.accept(ModItems.IRON_INFUSED_LEATHER.get());
                         output.accept(ModItems.NETHERITE_INFUSED_LEATHER.get());
                         output.accept(ModItems.QUARTZ_INFUSED_LEATHER.get());
+                    })
+                    .build());
+
+    /**
+     * Creative Mode Tab for the Element Kingdom, displaying Flare's Sword as its primary emblem.
+     */
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ELEMENT_KINGDOM_TAB =
+            CREATIVE_MODE_TABS.register("element_kingdom_tab", () -> CreativeModeTab.builder()
+                    .title(Component.translatable("creativetab.four_kingdoms.element_kingdom"))
+                    .icon(() -> new ItemStack(ModItems.FLARE_SWORD.get()))
+                    .displayItems((parameters, output) -> {
+                        output.accept(ModItems.FLARE_SWORD.get());
+                        output.accept(ModItems.FLARE_HELMET.get());
+                        output.accept(ModItems.FLARE_CHESTPLATE.get());
+                        output.accept(ModItems.FLARE_LEGGINGS.get());
+                        output.accept(ModItems.FLARE_BOOTS.get());
+                        output.accept(ModItems.FLARE_PICKAXE.get());
+                        output.accept(ModItems.FLARE_AXE.get());
+                        output.accept(ModItems.FLARE_SHOVEL.get());
+                        output.accept(ModItems.FLARE_HOE.get());
                     })
                     .build());
 }

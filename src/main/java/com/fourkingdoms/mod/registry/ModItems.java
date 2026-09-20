@@ -165,6 +165,69 @@ public class ModItems {
                     .attributes(HoeItem.createAttributes(ModToolMaterials.NIGHTMARE, -3.0F, 0.0F))));
 
     // =========================================================================
+    // FLARE CHARACTER SET - ELEMENT KINGDOM (pilot slice, Phase 3)
+    // =========================================================================
+
+    /**
+     * Flare's Signature Weapon: A fire-tempered sword with heavy damage.
+     */
+    public static final DeferredItem<SwordItem> FLARE_SWORD = ITEMS.register("flare_sword",
+            () -> new SwordItem(ModToolMaterials.FLARE, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.FLARE, 3.0F, -2.4F))));
+
+    /**
+     * Flare's Helmet - Heat-forged helm crackling with blaze energy.
+     */
+    public static final DeferredItem<ArmorItem> FLARE_HELMET = ITEMS.registerItem("flare_helmet",
+            props -> new ArmorItem(ModArmorMaterials.FLARE, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Flare's Chestplate - Offense-skewed fire plate trading defense for power.
+     */
+    public static final DeferredItem<ArmorItem> FLARE_CHESTPLATE = ITEMS.registerItem("flare_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.FLARE, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Flare's Leggings - Swift ember-guards favoring mobility.
+     */
+    public static final DeferredItem<ArmorItem> FLARE_LEGGINGS = ITEMS.registerItem("flare_leggings",
+            props -> new ArmorItem(ModArmorMaterials.FLARE, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Flare's Boots - Cinder-step boots completing the Flare set.
+     */
+    public static final DeferredItem<ArmorItem> FLARE_BOOTS = ITEMS.registerItem("flare_boots",
+            props -> new ArmorItem(ModArmorMaterials.FLARE, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Flare's Pickaxe - Blaze-hardened pickaxe for nether delving.
+     */
+    public static final DeferredItem<PickaxeItem> FLARE_PICKAXE = ITEMS.register("flare_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.FLARE, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.FLARE, 1.0F, -2.8F))));
+
+    /**
+     * Flare's Axe - Wildfire axe doubling as a weapon.
+     */
+    public static final DeferredItem<AxeItem> FLARE_AXE = ITEMS.register("flare_axe",
+            () -> new AxeItem(ModToolMaterials.FLARE, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.FLARE, 5.0F, -3.0F))));
+
+    /**
+     * Flare's Shovel - Excavation tool radiating furnace heat.
+     */
+    public static final DeferredItem<ShovelItem> FLARE_SHOVEL = ITEMS.register("flare_shovel",
+            () -> new ShovelItem(ModToolMaterials.FLARE, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.FLARE, 1.5F, -3.0F))));
+
+    /**
+     * Flare's Hoe - Ashen tilling tool with a warm touch.
+     */
+    public static final DeferredItem<HoeItem> FLARE_HOE = ITEMS.register("flare_hoe",
+            () -> new HoeItem(ModToolMaterials.FLARE, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.FLARE, -3.0F, 0.0F))));
+
+    // =========================================================================
     // INFUSED LEATHERS (ARMOR CRAFTING MATERIALS)
     // =========================================================================
 

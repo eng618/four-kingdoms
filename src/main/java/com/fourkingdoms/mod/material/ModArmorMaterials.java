@@ -62,4 +62,26 @@ public class ModArmorMaterials {
             // 7. Knockback Resistance
             0.1F
     ));
+
+    public static final Holder<ArmorMaterial> FLARE = ARMOR_MATERIALS.register("flare", () -> new ArmorMaterial(
+            // 1. Defense map (Helmet: 3, Chestplate: 7, Leggings: 5, Boots: 3) — offense-skewed fire set
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.CHESTPLATE, 7);
+                map.put(ArmorItem.Type.LEGGINGS, 5);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            // 2. Enchantability
+            15,
+            // 3. Equip Sound
+            SoundEvents.ARMOR_EQUIP_IRON,
+            // 4. Repair Ingredient (Blaze Rod & Iron Ingot, per hero roster)
+            () -> Ingredient.of(Items.BLAZE_ROD, Items.IRON_INGOT),
+            // 5. Equipment Layer Texture
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "flare"))),
+            // 6. Toughness
+            1.5F,
+            // 7. Knockback Resistance
+            0.0F
+    ));
 }

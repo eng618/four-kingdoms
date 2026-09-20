@@ -8,11 +8,13 @@
 * `daydream_pickaxe`, `daydream_axe`, `daydream_shovel`, `daydream_hoe`
 * `nightmare_sword`, `nightmare_helmet`, `nightmare_chestplate`, `nightmare_leggings`, `nightmare_boots`
 * `nightmare_pickaxe`, `nightmare_axe`, `nightmare_shovel`, `nightmare_hoe`
+* `flare_sword`, `flare_helmet`, `flare_chestplate`, `flare_leggings`, `flare_boots`
+* `flare_pickaxe`, `flare_axe`, `flare_shovel`, `flare_hoe`
 * `amethyst_infused_leather`, `copper_infused_leather`, `diamond_infused_leather`, `echo_infused_leather`, `gold_infused_leather`, `iron_infused_leather`, `netherite_infused_leather`, `quartz_infused_leather`
 
 ## Planned (do not use until registered)
 
-* `flare_*`, `crystal_*`, `speed_*`, `black_*`, `pearl_*`, `lazuli_*`, `leafy_*`, `sylvia_*`, `sunshine_*` per `hero-roster.md`
+* `crystal_*`, `speed_*`, `black_*`, `pearl_*`, `lazuli_*`, `leafy_*`, `sylvia_*`, `sunshine_*` per `hero-roster.md`
 * `forgotten_hero_*`
 
 ## Where defined

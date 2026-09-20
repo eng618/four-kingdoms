@@ -6,7 +6,7 @@ Placeholders until real names land. Replace `element_0X` / `forgotten_01` codena
 | --------- | ---------------------- | --------------- | ---------------------------- | ------------------ |
 | Dream     | Daydream ✅ implemented | `daydream`      | amethyst_shard + diamond     | spear (reach +1.5) |
 | Dream     | Nightmare ✅ implemented (placeholder art) | `nightmare`     | echo_shard + netherite_scrap | Sword              |
-| Element   | Flare                  | flare           | blaze_rod + iron             | Sword              |
+| Element   | Flare ✅ implemented (tinted placeholder art) | flare           | blaze_rod + iron             | Sword              |
 | Element   | Crystal                | crystal         | heart of the sea + diamond   | Trident            |
 | Element   | Speed                  | speed           | copper + iron                | Longword           |
 | Element   | Black                  | black           | netherite_scrap              | Blade              |

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "four_kingdoms:flare"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "four_kingdoms:flare"
+      }
+    ]
+  }
+}

@@ -22,4 +22,12 @@ public class ModToolMaterials {
             4.0F, // Attack Damage Bonus
             15, // Enchantability
             () -> Ingredient.of(Items.ECHO_SHARD, Items.NETHERITE_SCRAP));
+
+    public static final Tier FLARE = new SimpleTier(
+            BlockTags.INCORRECT_FOR_DIAMOND_TOOL,
+            1600, // Durability (uses)
+            8.0F, // Mining Speed
+            4.0F, // Attack Damage Bonus
+            14, // Enchantability
+            () -> Ingredient.of(Items.BLAZE_ROD, Items.IRON_INGOT));
 }

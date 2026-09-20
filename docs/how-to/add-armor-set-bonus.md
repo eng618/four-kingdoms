@@ -7,24 +7,28 @@ Implements the two Dream Kingdom bonuses. Locked decision: **Nightmare = option 
 * New package `event/` with `ArmorSetEffectHandler` + `SetBonus` interface:
 
   ```java
-  interface SetBonus { void onIntervalTick(LivingEntity entity, int piecesWorn); }
+  interface SetBonus { void apply(Player player, int piecesWorn); }
   ```
 
-* `Map<Holder<ArmorMaterial>, SetBonus>` so all 12 heroes reuse one tick path.
-* Server-side tick only, every 400 ticks (20s). Never run on client. Guard with `!level.isClientSide && entity.tickCount % 400 == 0`.
+* One shared tick path + one `MobEffectEvent.Applicable` listener, so all 12 heroes reuse the same code.
+* Server-side only, every 400 ticks (20s). Guarded with `!level.isClientSide && player.tickCount % 400 == 0`.
+
+## Chance model (additive — fixed per test findings)
+
+* Each worn piece adds 25% to a **single** roll per interval: 1pc = 25%, 2pc = 50%, 3pc = 75%, full set = 100% guaranteed.
+* Helper: `ArmorSetEffectHandler.rollSucceeds(player, piecesWorn)`.
 
 ## Daydream (buff)
 
-* For each Daydream armor piece worn, roll 25% independently.
+* One additive roll per 400t interval (25% × pieces worn).
 * On success: `addEffect(MOVEMENT_SPEED, 400t, amp 1)` + `addEffect(REGENERATION, 400t, amp 0)`.
-* Multiple successes in one interval = refresh duration (do not stack amplifiers).
+* Full set = buffs refresh every interval, effectively permanent while worn.
 
-## Nightmare (cleanse, option A)
+## Nightmare (prevent + cleanse, option A)
 
-* Triggers only if the wearer has `WITHER`, `POISON`, or `SLOWNESS`.
-* For each Nightmare piece worn, roll 25% independently per active bad effect.
-* On success: if remaining duration < 100t → `removeEffect`; else reduce duration by 50% (remove + re-add with shorter duration, preserving amplifier).
-* Rationale: vanilla has no "potion damage reduction" attribute; duration-cut approximates the 25%/piece spec without mixins.
+* **Prevent:** when Wither/Poison/Slowness would be applied, one additive roll (25% × pieces) denies it outright via `MobEffectEvent.Applicable` → `DO_NOT_APPLY`. Blocked effects deal no damage.
+* **Cleanse active:** each 400t interval, one additive roll per active bad effect; on success halve remaining duration, or remove if ≤100t remain (preserving amplifier).
+* Rationale: vanilla has no "potion damage reduction" attribute; block-before-start plus duration-cut delivers the spec's damage prevention without mixins. Mitigated list lives in `NIGHTMARE_MITIGATED` — extend there for future "and more" coverage.
 
 ## Test matrix
 
@@ -34,10 +38,10 @@ Implements the two Dream Kingdom bonuses. Locked decision: **Nightmare = option 
 
 ### Test findings
 
-* daydreams armor does not have 25% chance increase for each piece in allowing the effect to take place
-
-* The textures for Nightmare's set need to be changed, as well as tools
-* Nightmare's Armor set is supposed to have a 25% (For each piece) to prevent all withering damage, poison damage, slowness effect, and more
+* ~~Daydream armor does not scale chance per piece~~ → **Fixed:** additive model, 25% × pieces, full set = 100%. Re-test: 1pc should trigger ~1 in 4 intervals; 4pc every interval.
+* Nightmare textures/tools are placeholders (Daydream copies) → **Open, needs real art.** Replace files under `textures/` keeping names; no code change needed.
+* ~~Nightmare should prevent wither/poison/slowness damage~~ → **Fixed:** `Applicable` denial blocks application (no damage), plus halve/cleanse for already-active effects. Re-test: have a witch/splash potion hit you at 1pc vs 4pc; 4pc should block everything.
+* New 400t testing note: effects only roll when `player.tickCount % 400 == 0`, so allow up to 20s after equipping before judging a miss.
 
 ## Files to create
 
