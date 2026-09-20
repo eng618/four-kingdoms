@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "four_kingdoms:leafy"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "four_kingdoms:leafy"
+      }
+    ]
+  }
+}

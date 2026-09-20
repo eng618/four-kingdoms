@@ -84,4 +84,116 @@ public class ModArmorMaterials {
             // 7. Knockback Resistance
             0.0F
     ));
+
+    public static final Holder<ArmorMaterial> CRYSTAL = ARMOR_MATERIALS.register("crystal", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.CHESTPLATE, 8);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            16,
+            SoundEvents.ARMOR_EQUIP_TURTLE,
+            () -> Ingredient.of(Items.HEART_OF_THE_SEA, Items.DIAMOND),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "crystal"))),
+            2.0F,
+            0.05F));
+
+    public static final Holder<ArmorMaterial> SPEED = ARMOR_MATERIALS.register("speed", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 2);
+                map.put(ArmorItem.Type.CHESTPLATE, 6);
+                map.put(ArmorItem.Type.LEGGINGS, 5);
+                map.put(ArmorItem.Type.BOOTS, 2);
+            }),
+            20,
+            SoundEvents.ARMOR_EQUIP_CHAIN,
+            () -> Ingredient.of(Items.COPPER_INGOT, Items.IRON_INGOT),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "speed"))),
+            0.5F,
+            0.0F));
+
+    public static final Holder<ArmorMaterial> BLACK = ARMOR_MATERIALS.register("black", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 4);
+                map.put(ArmorItem.Type.CHESTPLATE, 8);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.BOOTS, 4);
+            }),
+            12,
+            SoundEvents.ARMOR_EQUIP_NETHERITE,
+            () -> Ingredient.of(Items.NETHERITE_SCRAP),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "black"))),
+            3.0F,
+            0.1F));
+
+    public static final Holder<ArmorMaterial> PEARL = ARMOR_MATERIALS.register("pearl", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.CHESTPLATE, 7);
+                map.put(ArmorItem.Type.LEGGINGS, 5);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            18,
+            SoundEvents.ARMOR_EQUIP_DIAMOND,
+            () -> Ingredient.of(Items.ENDER_PEARL, Items.DIAMOND),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "pearl"))),
+            1.0F,
+            0.0F));
+
+    public static final Holder<ArmorMaterial> LAZULI = ARMOR_MATERIALS.register("lazuli", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.CHESTPLATE, 8);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            14,
+            SoundEvents.ARMOR_EQUIP_IRON,
+            () -> Ingredient.of(Items.PACKED_ICE, Items.DIAMOND),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "lazuli"))),
+            2.0F,
+            0.05F));
+
+    public static final Holder<ArmorMaterial> LEAFY = ARMOR_MATERIALS.register("leafy", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 2);
+                map.put(ArmorItem.Type.CHESTPLATE, 7);
+                map.put(ArmorItem.Type.LEGGINGS, 5);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            16,
+            SoundEvents.ARMOR_EQUIP_LEATHER,
+            () -> Ingredient.of(Items.JUNGLE_LEAVES, Items.DIAMOND),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "leafy"))),
+            1.0F,
+            0.0F));
+
+    public static final Holder<ArmorMaterial> SYLVIA = ARMOR_MATERIALS.register("sylvia", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 4);
+                map.put(ArmorItem.Type.CHESTPLATE, 8);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            18,
+            SoundEvents.ARMOR_EQUIP_GOLD,
+            () -> Ingredient.of(Items.IRON_INGOT, Items.DIAMOND, Items.GOLD_INGOT),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "sylvia"))),
+            2.0F,
+            0.1F));
+
+    public static final Holder<ArmorMaterial> SUNSHINE = ARMOR_MATERIALS.register("sunshine", () -> new ArmorMaterial(
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.CHESTPLATE, 7);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            16,
+            SoundEvents.ARMOR_EQUIP_GOLD,
+            () -> Ingredient.of(Items.IRON_INGOT),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "sunshine"))),
+            1.0F,
+            0.05F));
 }

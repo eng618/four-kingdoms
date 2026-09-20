@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:jungle_leaves"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "DAD",
+    "D D",
+    "A A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "four_kingdoms:leafy_leggings"
+  }
+}

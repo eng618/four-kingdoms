@@ -5,16 +5,21 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.EntityTeleportEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <h1>ArmorSetEffectHandler</h1>
@@ -25,20 +30,23 @@ import java.util.List;
  *
  * <h2>Chance model (additive)</h2>
  * <p>
- * Each worn piece adds {@value #PER_PIECE_CHANCE} to a single roll per interval, so 1 piece = 25%,
+ * Each worn piece adds {@value #PER_PIECE_CHANCE} to a single roll per trigger, so 1 piece = 25%,
  * 2 = 50%, 3 = 75%, and a full 4-piece set always triggers (100%).
  * </p>
  *
  * <h2>Bonuses</h2>
  * <ul>
- *   <li><b>Daydream:</b> every {@value #INTERVAL_TICKS} ticks, one additive roll; on success the player
- *       gains Speed II + Regeneration I for {@value #BUFF_DURATION_TICKS} ticks.</li>
- *   <li><b>Nightmare (prevent + cleanse):</b> incoming Wither/Poison/Slowness is blocked outright on a
- *       successful additive roll ({@code MobEffectEvent.Applicable} denied); effects already active are
- *       halved in remaining duration on the interval tick (cleansed outright when under
- *       {@value #CLEANSE_THRESHOLD_TICKS} ticks remain).</li>
- *   <li><b>Flare (Element pilot):</b> every {@value #INTERVAL_TICKS} ticks, one additive roll;
- *       on success the player gains Fire Resistance for {@value #BUFF_DURATION_TICKS} ticks.</li>
+ *   <li><b>Daydream:</b> interval roll → Speed II + Regeneration I.</li>
+ *   <li><b>Nightmare:</b> incoming Wither/Poison/Slowness blocked on roll; active ones halved/cleansed.</li>
+ *   <li><b>Flare:</b> interval roll → Fire Resistance.</li>
+ *   <li><b>Crystal:</b> interval roll → Water Breathing + Dolphin's Grace.</li>
+ *   <li><b>Speed:</b> interval roll → Speed I + Haste I.</li>
+ *   <li><b>Black:</b> interval roll → Invisibility (short) + Night Vision.</li>
+ *   <li><b>Pearl:</b> interval roll → Slow Falling; ender-pearl landing damage negated on roll.</li>
+ *   <li><b>Lazuli:</b> attackers chilled with Slowness II on roll (thorns-style, damage hook).</li>
+ *   <li><b>Leafy:</b> interval roll → Regeneration I + Saturation.</li>
+ *   <li><b>Sylvia:</b> interval roll → Absorption II (4 bonus hearts).</li>
+ *   <li><b>Sunshine:</b> interval roll → Night Vision + cleanse of Darkness/Blindness.</li>
  * </ul>
  */
 public final class ArmorSetEffectHandler {
@@ -48,8 +56,14 @@ public final class ArmorSetEffectHandler {
     /** Chance added per worn piece to the single roll (0.25 x pieces; full set = guaranteed). */
     public static final float PER_PIECE_CHANCE = 0.25F;
 
-    /** Duration of the Daydream buffs. */
+    /** Duration of standard interval buffs. */
     public static final int BUFF_DURATION_TICKS = 400;
+
+    /** Shorter duration for stealth-flavored buffs. */
+    public static final int SHORT_BUFF_DURATION_TICKS = 200;
+
+    /** Retaliation debuff duration for Lazuli's chill. */
+    public static final int RETALIATION_DURATION_TICKS = 100;
 
     /** Remaining durations at or below this are cleansed instead of halved. */
     public static final int CLEANSE_THRESHOLD_TICKS = 100;
@@ -57,6 +71,10 @@ public final class ArmorSetEffectHandler {
     /** Bad effects Nightmare mitigates. Extend here for future "and more" coverage. */
     private static final List<Holder<MobEffect>> NIGHTMARE_MITIGATED = List.of(
             MobEffects.WITHER, MobEffects.POISON, MobEffects.MOVEMENT_SLOWDOWN);
+
+    /** Debuffs Sunshine cleanses outright on a successful roll. */
+    private static final List<Holder<MobEffect>> SUNSHINE_CLEANSED =
+            List.of(MobEffects.DARKNESS, MobEffects.BLINDNESS);
 
     private static final SetBonus DAYDREAM_BONUS = (player, piecesWorn) -> {
         if (!rollSucceeds(player, piecesWorn)) {
@@ -86,14 +104,95 @@ public final class ArmorSetEffectHandler {
         }
     };
 
-    private static final SetBonus FLARE_BONUS = (player, piecesWorn) -> {
+    private static final SetBonus FLARE_BONUS = intervalBuff(MobEffects.FIRE_RESISTANCE, 0, BUFF_DURATION_TICKS);
+
+    private static final SetBonus CRYSTAL_BONUS = (player, piecesWorn) -> {
         if (!rollSucceeds(player, piecesWorn)) {
             return;
         }
-        player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, BUFF_DURATION_TICKS, 0));
+        player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, BUFF_DURATION_TICKS, 0));
+        player.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, BUFF_DURATION_TICKS, 0));
     };
 
+    private static final SetBonus SPEED_BONUS = (player, piecesWorn) -> {
+        if (!rollSucceeds(player, piecesWorn)) {
+            return;
+        }
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, BUFF_DURATION_TICKS, 0));
+        player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, BUFF_DURATION_TICKS, 0));
+    };
+
+    private static final SetBonus BLACK_BONUS = (player, piecesWorn) -> {
+        if (!rollSucceeds(player, piecesWorn)) {
+            return;
+        }
+        player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, SHORT_BUFF_DURATION_TICKS, 0));
+        player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, BUFF_DURATION_TICKS, 0));
+    };
+
+    private static final SetBonus PEARL_BONUS = intervalBuff(MobEffects.SLOW_FALLING, 0, BUFF_DURATION_TICKS);
+
+    private static final SetBonus LEAFY_BONUS = (player, piecesWorn) -> {
+        if (!rollSucceeds(player, piecesWorn)) {
+            return;
+        }
+        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, BUFF_DURATION_TICKS, 0));
+        player.addEffect(new MobEffectInstance(MobEffects.SATURATION, SHORT_BUFF_DURATION_TICKS, 0));
+    };
+
+    private static final SetBonus SYLVIA_BONUS = intervalBuff(MobEffects.ABSORPTION, 1, BUFF_DURATION_TICKS);
+
+    private static final SetBonus SUNSHINE_BONUS = (player, piecesWorn) -> {
+        if (!rollSucceeds(player, piecesWorn)) {
+            return;
+        }
+        player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, BUFF_DURATION_TICKS, 0));
+        for (Holder<MobEffect> debuff : SUNSHINE_CLEANSED) {
+            if (player.getEffect(debuff) != null) {
+                player.removeEffect(debuff);
+            }
+        }
+    };
+
+    /**
+     * Interval bonuses keyed by armor material. Lazuli is handled purely in the damage hook
+     * (thorns-style retaliation needs an attacker, which the interval tick lacks).
+     */
+    private static final Map<Holder<ArmorMaterial>, SetBonus> INTERVAL_BONUSES = buildIntervalBonuses();
+
+    private static Map<Holder<ArmorMaterial>, SetBonus> buildIntervalBonuses() {
+        Map<Holder<ArmorMaterial>, SetBonus> map = new LinkedHashMap<>();
+        map.put(ModArmorMaterials.DAYDREAM, DAYDREAM_BONUS);
+        map.put(ModArmorMaterials.NIGHTMARE, NIGHTMARE_BONUS);
+        map.put(ModArmorMaterials.FLARE, FLARE_BONUS);
+        map.put(ModArmorMaterials.CRYSTAL, CRYSTAL_BONUS);
+        map.put(ModArmorMaterials.SPEED, SPEED_BONUS);
+        map.put(ModArmorMaterials.BLACK, BLACK_BONUS);
+        map.put(ModArmorMaterials.PEARL, PEARL_BONUS);
+        map.put(ModArmorMaterials.LEAFY, LEAFY_BONUS);
+        map.put(ModArmorMaterials.SYLVIA, SYLVIA_BONUS);
+        map.put(ModArmorMaterials.SUNSHINE, SUNSHINE_BONUS);
+        return Map.copyOf(map);
+    }
+
     private ArmorSetEffectHandler() {
+    }
+
+    /**
+     * Builds a single-effect interval bonus.
+     *
+     * @param effect The effect to apply.
+     * @param amplifier The effect amplifier.
+     * @param durationTicks The effect duration.
+     * @return A bonus applying the effect on a successful additive roll.
+     */
+    private static SetBonus intervalBuff(Holder<MobEffect> effect, int amplifier, int durationTicks) {
+        return (player, piecesWorn) -> {
+            if (!rollSucceeds(player, piecesWorn)) {
+                return;
+            }
+            player.addEffect(new MobEffectInstance(effect, durationTicks, amplifier));
+        };
     }
 
     /**
@@ -125,21 +224,14 @@ public final class ArmorSetEffectHandler {
         if (player.isSpectator() || player.isDeadOrDying()) {
             return;
         }
-        int daydreamPieces = countWornPieces(player, ModArmorMaterials.DAYDREAM);
-        if (daydreamPieces > 0) {
-            DAYDREAM_BONUS.apply(player, daydreamPieces);
-        }
-        // Nightmare material is registered alongside Daydream; guard for load order safety.
-        if (ModArmorMaterials.NIGHTMARE != null) {
-            int nightmarePieces = countWornPieces(player, ModArmorMaterials.NIGHTMARE);
-            if (nightmarePieces > 0) {
-                NIGHTMARE_BONUS.apply(player, nightmarePieces);
+        for (Map.Entry<Holder<ArmorMaterial>, SetBonus> entry : INTERVAL_BONUSES.entrySet()) {
+            Holder<ArmorMaterial> material = entry.getKey();
+            if (material == null) {
+                continue;
             }
-        }
-        if (ModArmorMaterials.FLARE != null) {
-            int flarePieces = countWornPieces(player, ModArmorMaterials.FLARE);
-            if (flarePieces > 0) {
-                FLARE_BONUS.apply(player, flarePieces);
+            int pieces = countWornPieces(player, material);
+            if (pieces > 0) {
+                entry.getValue().apply(player, pieces);
             }
         }
     }
@@ -169,6 +261,51 @@ public final class ArmorSetEffectHandler {
         int nightmarePieces = countWornPieces(player, ModArmorMaterials.NIGHTMARE);
         if (nightmarePieces > 0 && rollSucceeds(player, nightmarePieces)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
+        }
+    }
+
+    /**
+     * Damage hook for Lazuli's thorns-style retaliation: attackers are chilled with Slowness II
+     * on a successful additive roll.
+     *
+     * @param event The pre-damage event.
+     */
+    @SubscribeEvent
+    public static void onLivingDamagePre(LivingDamageEvent.Pre event) {
+        if (!(event.getEntity() instanceof Player player)) {
+            return;
+        }
+        if (player.level().isClientSide) {
+            return;
+        }
+        if (ModArmorMaterials.LAZULI == null) {
+            return;
+        }
+        Entity attacker = event.getSource().getEntity();
+        if (!(attacker instanceof LivingEntity livingAttacker)) {
+            return;
+        }
+        int lazuliPieces = countWornPieces(player, ModArmorMaterials.LAZULI);
+        if (lazuliPieces > 0 && rollSucceeds(player, lazuliPieces)) {
+            livingAttacker.addEffect(
+                    new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, RETALIATION_DURATION_TICKS, 1));
+        }
+    }
+
+    /**
+     * Negates ender-pearl landing damage for Pearl wearers on a successful additive roll.
+     *
+     * @param event The server-side ender-pearl landing event.
+     */
+    @SubscribeEvent
+    public static void onEnderPearlLand(EntityTeleportEvent.EnderPearl event) {
+        if (ModArmorMaterials.PEARL == null) {
+            return;
+        }
+        Player player = event.getPlayer();
+        int pearlPieces = countWornPieces(player, ModArmorMaterials.PEARL);
+        if (pearlPieces > 0 && rollSucceeds(player, pearlPieces)) {
+            event.setAttackDamage(0.0F);
         }
     }
 

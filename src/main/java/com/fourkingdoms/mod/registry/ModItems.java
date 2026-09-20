@@ -2,6 +2,7 @@ package com.fourkingdoms.mod.registry;
 
 import com.fourkingdoms.mod.FourKingdomsMod;
 import com.fourkingdoms.mod.item.DaydreamSpearItem;
+import com.fourkingdoms.mod.item.KingdomSpearItem;
 import com.fourkingdoms.mod.material.ModArmorMaterials;
 import com.fourkingdoms.mod.material.ModToolMaterials;
 import net.minecraft.world.item.*;
@@ -270,4 +271,506 @@ public class ModItems {
      * Quartz-Infused Leather - Crystal-infused leather with sharp energetic properties.
      */
     public static final DeferredItem<Item> QUARTZ_INFUSED_LEATHER = ITEMS.registerSimpleItem("quartz_infused_leather");
+
+    // =========================================================================
+    // CRYSTAL CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Crystal's Trident - ocean-forged trident humming with tide energy.
+     */
+    public static final DeferredItem<Item> CRYSTAL_TRIDENT = ITEMS.register("crystal_trident",
+            () -> new KingdomSpearItem(ModToolMaterials.CRYSTAL, 5.0F, -2.8F, 1.5D, new Item.Properties()));
+
+    /**
+     * Crystal's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> CRYSTAL_HELMET = ITEMS.registerItem("crystal_helmet",
+            props -> new ArmorItem(ModArmorMaterials.CRYSTAL, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Crystal's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> CRYSTAL_CHESTPLATE = ITEMS.registerItem("crystal_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.CRYSTAL, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Crystal's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> CRYSTAL_LEGGINGS = ITEMS.registerItem("crystal_leggings",
+            props -> new ArmorItem(ModArmorMaterials.CRYSTAL, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Crystal's Boots.
+     */
+    public static final DeferredItem<ArmorItem> CRYSTAL_BOOTS = ITEMS.registerItem("crystal_boots",
+            props -> new ArmorItem(ModArmorMaterials.CRYSTAL, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Crystal's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> CRYSTAL_PICKAXE = ITEMS.register("crystal_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.CRYSTAL, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.CRYSTAL, 1.0F, -2.8F))));
+
+    /**
+     * Crystal's Axe.
+     */
+    public static final DeferredItem<AxeItem> CRYSTAL_AXE = ITEMS.register("crystal_axe",
+            () -> new AxeItem(ModToolMaterials.CRYSTAL, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.CRYSTAL, 5.0F, -3.0F))));
+
+    /**
+     * Crystal's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> CRYSTAL_SHOVEL = ITEMS.register("crystal_shovel",
+            () -> new ShovelItem(ModToolMaterials.CRYSTAL, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.CRYSTAL, 1.5F, -3.0F))));
+
+    /**
+     * Crystal's Hoe.
+     */
+    public static final DeferredItem<HoeItem> CRYSTAL_HOE = ITEMS.register("crystal_hoe",
+            () -> new HoeItem(ModToolMaterials.CRYSTAL, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.CRYSTAL, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // SPEED CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Speed's Longsword - storm-quickness blade built for rapid strikes.
+     */
+    public static final DeferredItem<SwordItem> SPEED_LONGSWORD = ITEMS.register("speed_longsword",
+            () -> new SwordItem(ModToolMaterials.SPEED, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.SPEED, 3.0F, -2.2F))));
+
+    /**
+     * Speed's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> SPEED_HELMET = ITEMS.registerItem("speed_helmet",
+            props -> new ArmorItem(ModArmorMaterials.SPEED, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Speed's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> SPEED_CHESTPLATE = ITEMS.registerItem("speed_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.SPEED, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Speed's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> SPEED_LEGGINGS = ITEMS.registerItem("speed_leggings",
+            props -> new ArmorItem(ModArmorMaterials.SPEED, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Speed's Boots.
+     */
+    public static final DeferredItem<ArmorItem> SPEED_BOOTS = ITEMS.registerItem("speed_boots",
+            props -> new ArmorItem(ModArmorMaterials.SPEED, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Speed's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> SPEED_PICKAXE = ITEMS.register("speed_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.SPEED, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.SPEED, 1.0F, -2.8F))));
+
+    /**
+     * Speed's Axe.
+     */
+    public static final DeferredItem<AxeItem> SPEED_AXE = ITEMS.register("speed_axe",
+            () -> new AxeItem(ModToolMaterials.SPEED, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.SPEED, 5.0F, -3.0F))));
+
+    /**
+     * Speed's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> SPEED_SHOVEL = ITEMS.register("speed_shovel",
+            () -> new ShovelItem(ModToolMaterials.SPEED, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.SPEED, 1.5F, -3.0F))));
+
+    /**
+     * Speed's Hoe.
+     */
+    public static final DeferredItem<HoeItem> SPEED_HOE = ITEMS.register("speed_hoe",
+            () -> new HoeItem(ModToolMaterials.SPEED, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.SPEED, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // BLACK CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Black's Blade - heavy shadow blade trading speed for brutal damage.
+     */
+    public static final DeferredItem<SwordItem> BLACK_BLADE = ITEMS.register("black_blade",
+            () -> new SwordItem(ModToolMaterials.BLACK, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.BLACK, 4.0F, -2.6F))));
+
+    /**
+     * Black's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> BLACK_HELMET = ITEMS.registerItem("black_helmet",
+            props -> new ArmorItem(ModArmorMaterials.BLACK, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Black's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> BLACK_CHESTPLATE = ITEMS.registerItem("black_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.BLACK, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Black's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> BLACK_LEGGINGS = ITEMS.registerItem("black_leggings",
+            props -> new ArmorItem(ModArmorMaterials.BLACK, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Black's Boots.
+     */
+    public static final DeferredItem<ArmorItem> BLACK_BOOTS = ITEMS.registerItem("black_boots",
+            props -> new ArmorItem(ModArmorMaterials.BLACK, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Black's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> BLACK_PICKAXE = ITEMS.register("black_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.BLACK, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.BLACK, 1.0F, -2.8F))));
+
+    /**
+     * Black's Axe.
+     */
+    public static final DeferredItem<AxeItem> BLACK_AXE = ITEMS.register("black_axe",
+            () -> new AxeItem(ModToolMaterials.BLACK, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.BLACK, 5.0F, -3.0F))));
+
+    /**
+     * Black's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> BLACK_SHOVEL = ITEMS.register("black_shovel",
+            () -> new ShovelItem(ModToolMaterials.BLACK, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.BLACK, 1.5F, -3.0F))));
+
+    /**
+     * Black's Hoe.
+     */
+    public static final DeferredItem<HoeItem> BLACK_HOE = ITEMS.register("black_hoe",
+            () -> new HoeItem(ModToolMaterials.BLACK, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.BLACK, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // PEARL CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Pearl's Scythe - ender-touched scythe that falls softly and strikes true.
+     */
+    public static final DeferredItem<SwordItem> PEARL_SCYTHE = ITEMS.register("pearl_scythe",
+            () -> new SwordItem(ModToolMaterials.PEARL, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.PEARL, 3.0F, -2.4F))));
+
+    /**
+     * Pearl's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> PEARL_HELMET = ITEMS.registerItem("pearl_helmet",
+            props -> new ArmorItem(ModArmorMaterials.PEARL, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Pearl's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> PEARL_CHESTPLATE = ITEMS.registerItem("pearl_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.PEARL, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Pearl's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> PEARL_LEGGINGS = ITEMS.registerItem("pearl_leggings",
+            props -> new ArmorItem(ModArmorMaterials.PEARL, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Pearl's Boots.
+     */
+    public static final DeferredItem<ArmorItem> PEARL_BOOTS = ITEMS.registerItem("pearl_boots",
+            props -> new ArmorItem(ModArmorMaterials.PEARL, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Pearl's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> PEARL_PICKAXE = ITEMS.register("pearl_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.PEARL, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.PEARL, 1.0F, -2.8F))));
+
+    /**
+     * Pearl's Axe.
+     */
+    public static final DeferredItem<AxeItem> PEARL_AXE = ITEMS.register("pearl_axe",
+            () -> new AxeItem(ModToolMaterials.PEARL, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.PEARL, 5.0F, -3.0F))));
+
+    /**
+     * Pearl's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> PEARL_SHOVEL = ITEMS.register("pearl_shovel",
+            () -> new ShovelItem(ModToolMaterials.PEARL, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.PEARL, 1.5F, -3.0F))));
+
+    /**
+     * Pearl's Hoe.
+     */
+    public static final DeferredItem<HoeItem> PEARL_HOE = ITEMS.register("pearl_hoe",
+            () -> new HoeItem(ModToolMaterials.PEARL, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.PEARL, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // LAZULI CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Lazuli's Sickle - frostbitten sickle that chills whatever it reaps.
+     */
+    public static final DeferredItem<SwordItem> LAZULI_SICKLE = ITEMS.register("lazuli_sickle",
+            () -> new SwordItem(ModToolMaterials.LAZULI, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.LAZULI, 3.0F, -2.4F))));
+
+    /**
+     * Lazuli's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> LAZULI_HELMET = ITEMS.registerItem("lazuli_helmet",
+            props -> new ArmorItem(ModArmorMaterials.LAZULI, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Lazuli's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> LAZULI_CHESTPLATE = ITEMS.registerItem("lazuli_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.LAZULI, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Lazuli's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> LAZULI_LEGGINGS = ITEMS.registerItem("lazuli_leggings",
+            props -> new ArmorItem(ModArmorMaterials.LAZULI, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Lazuli's Boots.
+     */
+    public static final DeferredItem<ArmorItem> LAZULI_BOOTS = ITEMS.registerItem("lazuli_boots",
+            props -> new ArmorItem(ModArmorMaterials.LAZULI, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Lazuli's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> LAZULI_PICKAXE = ITEMS.register("lazuli_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.LAZULI, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.LAZULI, 1.0F, -2.8F))));
+
+    /**
+     * Lazuli's Axe.
+     */
+    public static final DeferredItem<AxeItem> LAZULI_AXE = ITEMS.register("lazuli_axe",
+            () -> new AxeItem(ModToolMaterials.LAZULI, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.LAZULI, 5.0F, -3.0F))));
+
+    /**
+     * Lazuli's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> LAZULI_SHOVEL = ITEMS.register("lazuli_shovel",
+            () -> new ShovelItem(ModToolMaterials.LAZULI, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.LAZULI, 1.5F, -3.0F))));
+
+    /**
+     * Lazuli's Hoe.
+     */
+    public static final DeferredItem<HoeItem> LAZULI_HOE = ITEMS.register("lazuli_hoe",
+            () -> new HoeItem(ModToolMaterials.LAZULI, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.LAZULI, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // LEAFY CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Leafy's Spear - living-wood spear with druidic reach.
+     */
+    public static final DeferredItem<Item> LEAFY_SPEAR = ITEMS.register("leafy_spear",
+            () -> new KingdomSpearItem(ModToolMaterials.LEAFY, 4.5F, -2.4F, 1.5D, new Item.Properties()));
+
+    /**
+     * Leafy's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> LEAFY_HELMET = ITEMS.registerItem("leafy_helmet",
+            props -> new ArmorItem(ModArmorMaterials.LEAFY, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Leafy's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> LEAFY_CHESTPLATE = ITEMS.registerItem("leafy_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.LEAFY, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Leafy's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> LEAFY_LEGGINGS = ITEMS.registerItem("leafy_leggings",
+            props -> new ArmorItem(ModArmorMaterials.LEAFY, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Leafy's Boots.
+     */
+    public static final DeferredItem<ArmorItem> LEAFY_BOOTS = ITEMS.registerItem("leafy_boots",
+            props -> new ArmorItem(ModArmorMaterials.LEAFY, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Leafy's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> LEAFY_PICKAXE = ITEMS.register("leafy_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.LEAFY, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.LEAFY, 1.0F, -2.8F))));
+
+    /**
+     * Leafy's Axe.
+     */
+    public static final DeferredItem<AxeItem> LEAFY_AXE = ITEMS.register("leafy_axe",
+            () -> new AxeItem(ModToolMaterials.LEAFY, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.LEAFY, 5.0F, -3.0F))));
+
+    /**
+     * Leafy's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> LEAFY_SHOVEL = ITEMS.register("leafy_shovel",
+            () -> new ShovelItem(ModToolMaterials.LEAFY, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.LEAFY, 1.5F, -3.0F))));
+
+    /**
+     * Leafy's Hoe.
+     */
+    public static final DeferredItem<HoeItem> LEAFY_HOE = ITEMS.register("leafy_hoe",
+            () -> new HoeItem(ModToolMaterials.LEAFY, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.LEAFY, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // SYLVIA CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Sylvia's Sword - royal tri-metal sword of the gilded court.
+     */
+    public static final DeferredItem<SwordItem> SYLVIA_SWORD = ITEMS.register("sylvia_sword",
+            () -> new SwordItem(ModToolMaterials.SYLVIA, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.SYLVIA, 4.0F, -2.4F))));
+
+    /**
+     * Sylvia's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> SYLVIA_HELMET = ITEMS.registerItem("sylvia_helmet",
+            props -> new ArmorItem(ModArmorMaterials.SYLVIA, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Sylvia's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> SYLVIA_CHESTPLATE = ITEMS.registerItem("sylvia_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.SYLVIA, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Sylvia's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> SYLVIA_LEGGINGS = ITEMS.registerItem("sylvia_leggings",
+            props -> new ArmorItem(ModArmorMaterials.SYLVIA, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Sylvia's Boots.
+     */
+    public static final DeferredItem<ArmorItem> SYLVIA_BOOTS = ITEMS.registerItem("sylvia_boots",
+            props -> new ArmorItem(ModArmorMaterials.SYLVIA, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Sylvia's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> SYLVIA_PICKAXE = ITEMS.register("sylvia_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.SYLVIA, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.SYLVIA, 1.0F, -2.8F))));
+
+    /**
+     * Sylvia's Axe.
+     */
+    public static final DeferredItem<AxeItem> SYLVIA_AXE = ITEMS.register("sylvia_axe",
+            () -> new AxeItem(ModToolMaterials.SYLVIA, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.SYLVIA, 5.0F, -3.0F))));
+
+    /**
+     * Sylvia's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> SYLVIA_SHOVEL = ITEMS.register("sylvia_shovel",
+            () -> new ShovelItem(ModToolMaterials.SYLVIA, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.SYLVIA, 1.5F, -3.0F))));
+
+    /**
+     * Sylvia's Hoe.
+     */
+    public static final DeferredItem<HoeItem> SYLVIA_HOE = ITEMS.register("sylvia_hoe",
+            () -> new HoeItem(ModToolMaterials.SYLVIA, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.SYLVIA, -3.0F, 0.0F))));
+
+    // =========================================================================
+    // SUNSHINE CHARACTER SET - ELEMENT KINGDOM
+    // =========================================================================
+
+    /**
+     * Sunshine's Sword - sunlit blade that banishes the dark.
+     */
+    public static final DeferredItem<SwordItem> SUNSHINE_SWORD = ITEMS.register("sunshine_sword",
+            () -> new SwordItem(ModToolMaterials.SUNSHINE, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.SUNSHINE, 3.0F, -2.4F))));
+
+    /**
+     * Sunshine's Helmet.
+     */
+    public static final DeferredItem<ArmorItem> SUNSHINE_HELMET = ITEMS.registerItem("sunshine_helmet",
+            props -> new ArmorItem(ModArmorMaterials.SUNSHINE, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Sunshine's Chestplate.
+     */
+    public static final DeferredItem<ArmorItem> SUNSHINE_CHESTPLATE = ITEMS.registerItem("sunshine_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.SUNSHINE, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Sunshine's Leggings.
+     */
+    public static final DeferredItem<ArmorItem> SUNSHINE_LEGGINGS = ITEMS.registerItem("sunshine_leggings",
+            props -> new ArmorItem(ModArmorMaterials.SUNSHINE, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Sunshine's Boots.
+     */
+    public static final DeferredItem<ArmorItem> SUNSHINE_BOOTS = ITEMS.registerItem("sunshine_boots",
+            props -> new ArmorItem(ModArmorMaterials.SUNSHINE, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Sunshine's Pickaxe.
+     */
+    public static final DeferredItem<PickaxeItem> SUNSHINE_PICKAXE = ITEMS.register("sunshine_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.SUNSHINE, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.SUNSHINE, 1.0F, -2.8F))));
+
+    /**
+     * Sunshine's Axe.
+     */
+    public static final DeferredItem<AxeItem> SUNSHINE_AXE = ITEMS.register("sunshine_axe",
+            () -> new AxeItem(ModToolMaterials.SUNSHINE, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.SUNSHINE, 5.0F, -3.0F))));
+
+    /**
+     * Sunshine's Shovel.
+     */
+    public static final DeferredItem<ShovelItem> SUNSHINE_SHOVEL = ITEMS.register("sunshine_shovel",
+            () -> new ShovelItem(ModToolMaterials.SUNSHINE, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.SUNSHINE, 1.5F, -3.0F))));
+
+    /**
+     * Sunshine's Hoe.
+     */
+    public static final DeferredItem<HoeItem> SUNSHINE_HOE = ITEMS.register("sunshine_hoe",
+            () -> new HoeItem(ModToolMaterials.SUNSHINE, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.SUNSHINE, -3.0F, 0.0F))));
 }

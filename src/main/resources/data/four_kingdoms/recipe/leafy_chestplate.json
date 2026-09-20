@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:jungle_leaves"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    "A A",
+    "DDD",
+    "DAD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "four_kingdoms:leafy_chestplate"
+  }
+}

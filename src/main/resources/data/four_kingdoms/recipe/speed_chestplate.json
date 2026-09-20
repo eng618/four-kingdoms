@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:copper_ingot"
+    },
+    "D": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "A A",
+    "DDD",
+    "DAD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "four_kingdoms:speed_chestplate"
+  }
+}

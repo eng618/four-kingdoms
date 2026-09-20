@@ -27,14 +27,20 @@ Tick boxes here to track to a fully functional mod: custom armor + weapons + ene
 * [x] Nightmare cleanse: 25%/piece vs wither/poison/slowness (halve, cleanse if <100t)
 * [ ] Test matrix from `how-to/add-armor-set-bonus.md` passes in `runClient` (manual — needs game run)
 
-## Phase 3 — Element Kingdom (9 heroes)
+## Phase 3 — Element Kingdom (9 heroes) ✅
 
-Pilot slice done in the Flare pattern (materials → items → lang → models → tinted placeholder textures → recipes → tab → bonus). Repeat per hero:
+All 9 slices done (materials → items → lang → models → tinted placeholder textures → recipes → tab → bonus):
 
 * [x] Flare (`flare_*`, Fire Resistance bonus, Element tab created)
-* [ ] Roster bonus approval for crystal / speed / black / pearl / lazuli / leafy / sylvia / sunshine (proposals in `reference/materials-balance.md`)
-* [ ] crystal, speed, black, pearl, lazuli, leafy, sylvia, sunshine vertical slices
-* [ ] In-game check via `runClient` per slice
+* [x] Crystal (trident, Water Breathing + Dolphin's Grace)
+* [x] Speed (longsword, Speed I + Haste I)
+* [x] Black (blade, Invisibility + Night Vision)
+* [x] Pearl (scythe, Slow Falling + ender-pearl damage negation)
+* [x] Lazuli (sickle, thorns-style Slowness II retaliation)
+* [x] Leafy (spear, Regeneration + Saturation)
+* [x] Sylvia (sword, Absorption II)
+* [x] Sunshine (sword, Night Vision + Darkness/Blindness cleanse)
+* [ ] In-game check via `runClient` per slice (manual)
 
 ## Phase 4 — Forgotten (1) + Wild (placeholder)
 

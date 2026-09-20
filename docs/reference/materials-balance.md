@@ -48,19 +48,28 @@
 | Set bonus | Additive roll → Fire Resistance I, 400t, every 400t (server only) |
 | Art status | Daydream art hue-shifted to blaze orange via script — replace with real Flare art when ready |
 
-## Proposed Element bonuses (awaiting approval — not implemented)
+## Element heroes (Phase 3 — all implemented, tinted placeholder art)
 
-Same additive roll (25% × pieces, 400t interval) unless noted. Counterpart should mirror the hero's element:
+All use the additive roll (25% × pieces, 400t interval, server only) unless noted. Art for all 8 is hue-shifted Daydream placeholders — replace with real art when ready.
 
-| Hero | Proposal |
-|---|---|
-| crystal (ocean/trident) | Water Breathing + Dolphin's Grace, 400t |
-| speed (storm/longsword) | Speed I (or II) + Haste I, 400t |
-| black (shadow/blade) | Invisibility pulse 200t + Night Vision, 400t interval |
-| pearl (ender/scythe) | Slow Falling + reduced ender-pearl self-damage (custom: deny fall damage ticks on roll) |
-| lazuli (frost/sickle) | Slowness aura on attackers (Thorns-style via HurtEvent) or Frost Walker-style step bonus — TBD, needs design pick |
-| leafy (nature/spear) | Regeneration I + Saturation tick, 400t |
-| sylvia (royal/sword) | Hero of the Village-style discount is out of scope; propose Absorption II (4 hearts), 400t |
-| sunshine (light/sword) | Night Vision + Glowing cleanse (remove Darkness/Blindness on roll, mirroring Nightmare) |
+| Hero | Defense H/C/L/B | Ench | Tough / KB | Tools dur/spd/dmg | Repair | Weapon | Set bonus |
+|---|---|---|---|---|---|---|---|
+| flare | 3/7/5/3 | 15 | 1.5 / 0.0 | 1600/8.0/+4.0 | blaze_rod + iron_ingot | sword 3.0/-2.4 | Fire Resistance 400t |
+| crystal | 3/8/6/3 | 16 | 2.0 / 0.05 | 1700/8.5/+3.5 | heart_of_the_sea + diamond | trident 5.0/-2.8, reach 1.5 (melee; throwable = future upgrade) | Water Breathing + Dolphin's Grace 400t |
+| speed | 2/6/5/2 | 20 | 0.5 / 0.0 | 1500/9.0/+3.0 | copper_ingot + iron_ingot | longsword 3.0/-2.2 | Speed I + Haste I 400t |
+| black | 4/8/6/4 | 12 | 3.0 / 0.1 | 2200/7.5/+4.5 | netherite_scrap | blade 4.0/-2.6 | Invisibility 200t + Night Vision 400t |
+| pearl | 3/7/5/3 | 18 | 1.0 / 0.0 | 1600/8.0/+3.5 | ender_pearl + diamond | scythe 3.0/-2.4 (sword-class) | Slow Falling 400t + ender-pearl landing damage negated on roll (`EntityTeleportEvent.EnderPearl`) |
+| lazuli | 3/8/6/3 | 14 | 2.0 / 0.05 | 1750/8.0/+3.5 | packed_ice + diamond | sickle 3.0/-2.4 (sword-class) | Thorns-style: attackers get Slowness II 100t on roll (`LivingDamageEvent.Pre`; no interval buff) |
+| leafy | 2/7/5/3 | 16 | 1.0 / 0.0 | 1500/8.0/+3.0 | jungle_leaves + diamond | spear 4.5/-2.4, reach 1.5 | Regeneration I 400t + Saturation 200t |
+| sylvia | 4/8/6/3 | 18 | 2.0 / 0.1 | 2000/8.0/+4.0 | iron + diamond + gold (recipes use iron/diamond; gold reserved for future gilded recipe pass) | sword 4.0/-2.4 | Absorption II (4 hearts) 400t |
+| sunshine | 3/7/6/3 | 16 | 1.0 / 0.05 | 1700/8.5/+3.5 | iron_ingot | sword 3.0/-2.4 | Night Vision 400t + cleanse Darkness/Blindness on roll |
 
-Confirm or revise these and I will batch the remaining 8 slices in the same Flare pattern.
+## Pending rows
+
+forgotten_hero — fill before coding (Phase 4).
+
+## Shared tech notes (Phase 3)
+
+* `item/KingdomSpearItem.java` is the polearm base (damage/speed/reach params); `DaydreamSpearItem` is now a thin subclass. Crystal's trident and Leafy's spear use the base directly.
+* Scythe/sickle/longsword/blade are sword-class items (`SwordItem`) with distinct stats — custom sweep/throw behaviors are Phase 5 upgrades, not silent omissions.
+* Interval bonuses dispatch via `INTERVAL_BONUSES` map in `ArmorSetEffectHandler`; Lazuli lives only in the damage hook.
