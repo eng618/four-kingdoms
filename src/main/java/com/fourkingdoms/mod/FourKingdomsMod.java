@@ -1,8 +1,10 @@
 package com.fourkingdoms.mod;
 
+import com.fourkingdoms.mod.event.ArmorSetEffectHandler;
 import com.fourkingdoms.mod.material.ModArmorMaterials;
 import com.fourkingdoms.mod.registry.ModCreativeTabs;
 import com.fourkingdoms.mod.registry.ModItems;
+import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -63,6 +65,9 @@ public class FourKingdomsMod {
 
         // Register lifecycle event handlers
         modEventBus.addListener(this::commonSetup);
+
+        // Server-side armor set bonus tick handler (game bus, not the mod bus)
+        NeoForge.EVENT_BUS.register(ArmorSetEffectHandler.class);
     }
 
     /**

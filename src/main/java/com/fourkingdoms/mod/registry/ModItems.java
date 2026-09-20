@@ -102,6 +102,69 @@ public class ModItems {
                     .attributes(HoeItem.createAttributes(ModToolMaterials.DAYDREAM, -3.0F, 0.0F))));
 
     // =========================================================================
+    // NIGHTMARE CHARACTER SET - DREAM KINGDOM
+    // =========================================================================
+
+    /**
+     * Nightmare's Signature Weapon: A shadow-forged sword balancing heavy damage with steady speed.
+     */
+    public static final DeferredItem<SwordItem> NIGHTMARE_SWORD = ITEMS.register("nightmare_sword",
+            () -> new SwordItem(ModToolMaterials.NIGHTMARE, new Item.Properties()
+                    .attributes(SwordItem.createAttributes(ModToolMaterials.NIGHTMARE, 3.0F, -2.4F))));
+
+    /**
+     * Nightmare's Helmet - Shadow-veiled helm that shrugs off dark afflictions.
+     */
+    public static final DeferredItem<ArmorItem> NIGHTMARE_HELMET = ITEMS.registerItem("nightmare_helmet",
+            props -> new ArmorItem(ModArmorMaterials.NIGHTMARE, ArmorItem.Type.HELMET, props));
+
+    /**
+     * Nightmare's Chestplate - Heavy shadow plate with added knockback resistance.
+     */
+    public static final DeferredItem<ArmorItem> NIGHTMARE_CHESTPLATE = ITEMS.registerItem("nightmare_chestplate",
+            props -> new ArmorItem(ModArmorMaterials.NIGHTMARE, ArmorItem.Type.CHESTPLATE, props));
+
+    /**
+     * Nightmare's Leggings - Dark leg guards echoing with sculk resonance.
+     */
+    public static final DeferredItem<ArmorItem> NIGHTMARE_LEGGINGS = ITEMS.registerItem("nightmare_leggings",
+            props -> new ArmorItem(ModArmorMaterials.NIGHTMARE, ArmorItem.Type.LEGGINGS, props));
+
+    /**
+     * Nightmare's Boots - Silent shadow-treading boots completing the Nightmare set.
+     */
+    public static final DeferredItem<ArmorItem> NIGHTMARE_BOOTS = ITEMS.registerItem("nightmare_boots",
+            props -> new ArmorItem(ModArmorMaterials.NIGHTMARE, ArmorItem.Type.BOOTS, props));
+
+    /**
+     * Nightmare's Pickaxe - Sculk-hardened pickaxe for deep delving.
+     */
+    public static final DeferredItem<PickaxeItem> NIGHTMARE_PICKAXE = ITEMS.register("nightmare_pickaxe",
+            () -> new PickaxeItem(ModToolMaterials.NIGHTMARE, new Item.Properties()
+                    .attributes(PickaxeItem.createAttributes(ModToolMaterials.NIGHTMARE, 1.0F, -2.8F))));
+
+    /**
+     * Nightmare's Axe - Brutal shadow axe doubling as a weapon.
+     */
+    public static final DeferredItem<AxeItem> NIGHTMARE_AXE = ITEMS.register("nightmare_axe",
+            () -> new AxeItem(ModToolMaterials.NIGHTMARE, new Item.Properties()
+                    .attributes(AxeItem.createAttributes(ModToolMaterials.NIGHTMARE, 5.0F, -3.0F))));
+
+    /**
+     * Nightmare's Shovel - Excavation tool humming with echo energy.
+     */
+    public static final DeferredItem<ShovelItem> NIGHTMARE_SHOVEL = ITEMS.register("nightmare_shovel",
+            () -> new ShovelItem(ModToolMaterials.NIGHTMARE, new Item.Properties()
+                    .attributes(ShovelItem.createAttributes(ModToolMaterials.NIGHTMARE, 1.5F, -3.0F))));
+
+    /**
+     * Nightmare's Hoe - Tilling tool touched by the deep dark.
+     */
+    public static final DeferredItem<HoeItem> NIGHTMARE_HOE = ITEMS.register("nightmare_hoe",
+            () -> new HoeItem(ModToolMaterials.NIGHTMARE, new Item.Properties()
+                    .attributes(HoeItem.createAttributes(ModToolMaterials.NIGHTMARE, -3.0F, 0.0F))));
+
+    // =========================================================================
     // INFUSED LEATHERS (ARMOR CRAFTING MATERIALS)
     // =========================================================================
 

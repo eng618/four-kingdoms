@@ -72,3 +72,5 @@ Thumbs.db
 #Ignore vscode AI rules
 .github/instructions/codacy.instructions.md
 .codacy/codacy.yaml
+docs/.obsidian/*
+.codacy/*

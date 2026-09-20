@@ -60,6 +60,16 @@ public class ModCreativeTabs {
                         output.accept(ModItems.DAYDREAM_SHOVEL.get());
                         output.accept(ModItems.DAYDREAM_HOE.get());
 
+                        output.accept(ModItems.NIGHTMARE_SWORD.get());
+                        output.accept(ModItems.NIGHTMARE_HELMET.get());
+                        output.accept(ModItems.NIGHTMARE_CHESTPLATE.get());
+                        output.accept(ModItems.NIGHTMARE_LEGGINGS.get());
+                        output.accept(ModItems.NIGHTMARE_BOOTS.get());
+                        output.accept(ModItems.NIGHTMARE_PICKAXE.get());
+                        output.accept(ModItems.NIGHTMARE_AXE.get());
+                        output.accept(ModItems.NIGHTMARE_SHOVEL.get());
+                        output.accept(ModItems.NIGHTMARE_HOE.get());
+
                         // Infused Leathers
                         output.accept(ModItems.AMETHYST_INFUSED_LEATHER.get());
                         output.accept(ModItems.COPPER_INFUSED_LEATHER.get());

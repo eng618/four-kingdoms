@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "item": "minecraft:echo_shard"
+    },
+    "N": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "pattern": [
+    "E E",
+    "N N"
+  ],
+  "result": {
+    "count": 1,
+    "id": "four_kingdoms:nightmare_boots"
+  }
+}

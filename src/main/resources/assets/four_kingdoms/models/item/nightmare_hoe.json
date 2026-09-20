@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "four_kingdoms:item/nightmare_hoe"
+  }
+}

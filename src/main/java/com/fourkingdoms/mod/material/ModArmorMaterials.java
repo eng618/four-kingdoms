@@ -40,4 +40,26 @@ public class ModArmorMaterials {
             // 7. Knockback Resistance
             0.05F
     ));
+
+    public static final Holder<ArmorMaterial> NIGHTMARE = ARMOR_MATERIALS.register("nightmare", () -> new ArmorMaterial(
+            // 1. Defense map (Helmet: 3, Chestplate: 8, Leggings: 6, Boots: 3) — shadow mirror of Daydream
+            Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+                map.put(ArmorItem.Type.HELMET, 3);
+                map.put(ArmorItem.Type.CHESTPLATE, 8);
+                map.put(ArmorItem.Type.LEGGINGS, 6);
+                map.put(ArmorItem.Type.BOOTS, 3);
+            }),
+            // 2. Enchantability
+            15,
+            // 3. Equip Sound
+            SoundEvents.ARMOR_EQUIP_NETHERITE,
+            // 4. Repair Ingredient (Echo Shard & Netherite Scrap, per hero roster)
+            () -> Ingredient.of(Items.ECHO_SHARD, Items.NETHERITE_SCRAP),
+            // 5. Equipment Layer Texture
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(FourKingdomsMod.MOD_ID, "nightmare"))),
+            // 6. Toughness
+            2.5F,
+            // 7. Knockback Resistance
+            0.1F
+    ));
 }
