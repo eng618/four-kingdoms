@@ -1,5 +1,8 @@
 # 👑 Four Kingdoms Minecraft Mod
 
+[![Build & Test](https://github.com/eng618/four-kingdoms/actions/workflows/build.yml/badge.svg)](https://github.com/eng618/four-kingdoms/actions/workflows/build.yml)
+[![Release](https://github.com/eng618/four-kingdoms/actions/workflows/release.yml/badge.svg)](https://github.com/eng618/four-kingdoms/actions/workflows/release.yml)
+
 A rich **Minecraft 1.21.1 NeoForge** mod introducing four distinct lore-rich kingdoms, custom armor sets, weapons, tools, and iconic hero gear.
 
 ---
@@ -159,3 +162,20 @@ Create recipe JSON files in `src/main/resources/data/four_kingdoms/recipe/`.
 - **Mod Author:** EnGarcia
 - **License:** MIT License
 - **Framework:** NeoForge 1.21.1
+
+---
+
+## 🚢 Releasing
+
+- Use [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `feat!:`).
+- All types (`feat/fix/perf/revert/docs/style/refactor/test/build/ci/chore`) appear in the changelog (see `release-please-config.json`) and are linted by the **Commitlint** workflow on PRs and `main` pushes — non-conforming messages fail CI.
+- On push to `main`, **Release Please** opens/updates a Release PR with changelog + version bump. Merging it creates tag `vX.Y.Z` + GitHub Release.
+- Tag push triggers `Release` workflow: builds with `-Pmod_version=X.Y.Z` (overrides `gradle.properties`), attaches jar to GitHub Release.
+- **Modrinth / CurseForge** auto-enable once secrets exist (skipped otherwise):
+
+| Secret | Description |
+| :--- | :--- |
+| `MODRINTH_TOKEN` / `MODRINTH_PROJECT_ID` | Modrinth API token + project ID/slug |
+| `CURSEFORGE_TOKEN` / `CURSEFORGE_PROJECT_ID` | CurseForge API token + project ID |
+
+- Manual release: `Actions > Release > Run workflow`, or `git tag v1.2.3 && git push origin v1.2.3`.

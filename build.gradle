@@ -4,6 +4,7 @@ plugins {
     id 'idea'
     id 'net.neoforged.moddev' version '2.0.75'
     id 'com.diffplug.spotless' version '6.25.0'
+    id 'me.modmuss50.mod-publish-plugin' version '2.0.1'
 }
 
 tasks.named('wrapper', Wrapper) {
@@ -124,5 +125,27 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+publishMods {
+    file = tasks.named('jar', Jar).flatMap { it.archiveFile }
+    version = mod_version
+    changelog = providers.environmentVariable('GITHUB_RELEASE_NOTES').getOrElse("Release ${mod_version}")
+    type = STABLE
+    modLoaders.add('neoforge')
+
+    modrinth {
+        projectId = providers.environmentVariable('MODRINTH_PROJECT_ID').getOrElse('unset-modrinth-project')
+        accessToken = providers.environmentVariable('MODRINTH_TOKEN')
+        minecraftVersions.add(minecraft_version)
+    }
+
+    curseforge {
+        projectId = providers.environmentVariable('CURSEFORGE_PROJECT_ID').getOrElse('0')
+        accessToken = providers.environmentVariable('CURSEFORGE_TOKEN')
+        minecraftVersions.add(minecraft_version)
+        client = true
+        server = true
     }
 }
