@@ -41,3 +41,9 @@ Tokens stay in CI only, but you can validate the Gradle wiring without publishin
 
 Then edit `MODRINTH.md` for player-facing copy — it ships to the project page on the next release, no code changes needed.
 
+### Release Please rules (read before touching versions)
+
+* Never hand-edit `.release-please-manifest.json` — it must always match the latest `vX.Y.Z` tag. If they drift, release-please can't anchor "commits since latest release" and exits successfully *without opening a PR* (silent no-op; look for `Splitting 0 commits by path` in its log).
+* Only `feat` (minor), `fix` / `perf` (patch), or `BREAKING CHANGE` commits open a release PR. `ci` / `build` / `docs` / `chore` / `style` / `refactor` / `test` alone intentionally produce no PR.
+* The loop: push `feat`/`fix` → release-please opens a version-bump PR → merge it → tag `vX.Y.Z` is created → `Release` workflow ships GitHub + Modrinth.
+
