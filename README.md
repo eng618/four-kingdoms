@@ -171,11 +171,13 @@ Create recipe JSON files in `src/main/resources/data/four_kingdoms/recipe/`.
 - All types (`feat/fix/perf/revert/docs/style/refactor/test/build/ci/chore`) appear in the changelog (see `release-please-config.json`) and are linted by the **Commitlint** workflow on PRs and `main` pushes — non-conforming messages fail CI.
 - On push to `main`, **Release Please** opens/updates a Release PR with changelog + version bump. Merging it creates tag `vX.Y.Z` + GitHub Release.
 - Tag push triggers `Release` workflow: builds with `-Pmod_version=X.Y.Z` (overrides `gradle.properties`), attaches jar to GitHub Release.
-- **Modrinth / CurseForge** auto-enable once secrets exist (skipped otherwise):
+- **Modrinth / CurseForge** auto-enable once secrets exist (skipped otherwise).
+  Each release also syncs `MODRINTH.md` to the Modrinth project page and reuses the GitHub release notes as changelog:
 
 | Secret | Description |
 | :--- | :--- |
-| `MODRINTH_TOKEN` / `MODRINTH_PROJECT_ID` | Modrinth API token + project ID/slug |
-| `CURSEFORGE_TOKEN` / `CURSEFORGE_PROJECT_ID` | CurseForge API token + project ID |
+| `MODRINTH_TOKEN` | Modrinth PAT — needs **Create/Read/Write versions** + **Read/Write projects** (for description sync) |
+| `MODRINTH_PROJECT_ID` | Modrinth project ID/slug (required — publishing fails against the `unset-modrinth-project` fallback) |
+| `CURSEFORGE_TOKEN` / `CURSEFORGE_PROJECT_ID` | CurseForge API token + numeric project ID (optional) |
 
 - Manual release: `Actions > Release > Run workflow`, or `git tag v1.2.3 && git push origin v1.2.3`.

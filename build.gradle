@@ -135,17 +135,33 @@ publishMods {
     type = STABLE
     modLoaders.add('neoforge')
 
-    modrinth {
-        projectId = providers.environmentVariable('MODRINTH_PROJECT_ID').getOrElse('unset-modrinth-project')
-        accessToken = providers.environmentVariable('MODRINTH_TOKEN')
-        minecraftVersions.add(minecraft_version)
-    }
+    // Platforms register below, only when their token is present — so a
+    // Modrinth-only setup never trips over CurseForge config and vice versa.
+}
 
-    curseforge {
-        projectId = providers.environmentVariable('CURSEFORGE_PROJECT_ID').getOrElse('0')
-        accessToken = providers.environmentVariable('CURSEFORGE_TOKEN')
-        minecraftVersions.add(minecraft_version)
-        client = true
-        server = true
+// Each publish platform is configured only when its token exists, so running
+// ./gradlew publishMods with just MODRINTH_TOKEN set won't fail on CurseForge.
+if (providers.environmentVariable('MODRINTH_TOKEN').isPresent()) {
+    publishMods {
+        modrinth {
+            projectId = providers.environmentVariable('MODRINTH_PROJECT_ID').getOrElse('unset-modrinth-project')
+            accessToken = providers.environmentVariable('MODRINTH_TOKEN')
+            minecraftVersions.add(minecraft_version)
+            // Syncs MODRINTH.md to the project page body on every publish.
+            // Requires the PAT to also have Read + Write projects scopes.
+            projectDescription = providers.fileContents(layout.projectDirectory.file('MODRINTH.md')).asText
+        }
+    }
+}
+
+if (providers.environmentVariable('CURSEFORGE_TOKEN').isPresent()) {
+    publishMods {
+        curseforge {
+            projectId = providers.environmentVariable('CURSEFORGE_PROJECT_ID').getOrElse('0')
+            accessToken = providers.environmentVariable('CURSEFORGE_TOKEN')
+            minecraftVersions.add(minecraft_version)
+            client = true
+            server = true
+        }
     }
 }
