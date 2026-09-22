@@ -139,9 +139,12 @@ publishMods {
     // Modrinth-only setup never trips over CurseForge config and vice versa.
 }
 
-// Each publish platform is configured only when its token exists, so running
-// ./gradlew publishMods with just MODRINTH_TOKEN set won't fail on CurseForge.
-if (providers.environmentVariable('MODRINTH_TOKEN').isPresent()) {
+// Each publish platform is configured only when its token is set to a non-blank
+// value, so running ./gradlew publishMods with just MODRINTH_TOKEN set won't
+// fail on CurseForge. NOTE: `isPresent()` alone is NOT enough — CI exports
+// every job-level env var, so a missing secret arrives as an empty string,
+// which is "present" but unusable. Always check for non-blank.
+if (!providers.environmentVariable('MODRINTH_TOKEN').getOrElse('').isBlank()) {
     publishMods {
         modrinth {
             projectId = providers.environmentVariable('MODRINTH_PROJECT_ID').getOrElse('unset-modrinth-project')
@@ -154,7 +157,7 @@ if (providers.environmentVariable('MODRINTH_TOKEN').isPresent()) {
     }
 }
 
-if (providers.environmentVariable('CURSEFORGE_TOKEN').isPresent()) {
+if (!providers.environmentVariable('CURSEFORGE_TOKEN').getOrElse('').isBlank()) {
     publishMods {
         curseforge {
             projectId = providers.environmentVariable('CURSEFORGE_PROJECT_ID').getOrElse('0')
