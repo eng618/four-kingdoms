@@ -16,6 +16,14 @@ jobs:
   release:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    # Secrets cannot be read in step `if:` conditions, but job-level env CAN
+    # be populated from secrets — so map them here and gate on env below.
+    # Empty/missing secrets become empty strings, which fail the gate safely.
+    env:
+      MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+      MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
+      CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+      CURSEFORGE_PROJECT_ID: ${{ secrets.CURSEFORGE_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -60,12 +68,8 @@ jobs:
           echo "EOF" >> "$GITHUB_ENV"
 
       - name: Publish to Modrinth / CurseForge
-        # NOTE: step-level env is NOT visible in `if:` — gate on secrets instead.
-        if: ${{ secrets.MODRINTH_TOKEN != '' || secrets.CURSEFORGE_TOKEN != '' }}
+        # Tokens come from job-level env (see above); the step runs if either platform is configured.
+        if: ${{ env.MODRINTH_TOKEN != '' || env.CURSEFORGE_TOKEN != '' }}
         env:
-          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-          MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
-          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
-          CURSEFORGE_PROJECT_ID: ${{ secrets.CURSEFORGE_PROJECT_ID }}
           VERSION: ${{ steps.version.outputs.version }}
         run: ./gradlew publishMods -Pmod_version=$VERSION --stacktrace
