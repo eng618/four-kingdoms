@@ -185,9 +185,9 @@ You can run project lifecycles using [Task](https://taskfile.dev) (`task <comman
 
 ## Release / versioning behavior
 
-- `gradle.properties` contains the baseline development `mod_version`.
-- **Release Please** (`release-type: simple`) manages release PRs/tags and the manifest (`.release-please-manifest.json`); it does **not** automatically rewrite `gradle.properties`.
-- The **Release** workflow derives the version from the git tag (`vX.Y.Z`) and builds with `-Pmod_version=X.Y.Z`, so published artifacts use the tag version. Keep `gradle.properties`/manifest aligned when preparing releases if you want the repo baseline to match.
+- **Release Please** (`release-type: simple`, `include-v-in-tag`, `version-file: version.txt`) manages release PRs/tags, `CHANGELOG.md`, the manifest (`.release-please-manifest.json`), and bumps `version.txt` in release PRs.
+- `gradle.properties` holds the baseline development `mod_version` for local/dev builds. Keep it aligned with releases as needed (or rely on tag overrides below).
+- The **Release** workflow derives the version from the git tag (`vX.Y.Z`) and builds/publishes with `-Pmod_version=X.Y.Z` (**authoritative for tagged artifacts**), then publishes the GitHub Release and (if configured) Modrinth/CurseForge via `publishMods`. Keep `MODRINTH_PROJECT_ID`/tokens correct before enabling platform publishing.
 
 ## Generated data
 

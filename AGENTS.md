@@ -18,5 +18,7 @@ NeoForge mod for Minecraft 1.21.1 (`mod_id=four_kingdoms`). Java 21, Gradle (wra
 - Do not commit secrets or tokens. Platform publish tokens live in env/CI secrets.
 
 ## Versioning & releases
-- `gradle.properties` holds the development `mod_version`. Release automation (Release Please / tag workflows) may override or bump versions per repo workflow; confirm before changing versioning behavior.
+- Release Please (`release-type: simple`, `version-file: version.txt`) manages release PRs/tags and bumps `version.txt`. `gradle.properties` keeps a baseline `mod_version` for local/dev builds.
+- The `Release` workflow builds/publishes with `-Pmod_version` derived from the git tag (authoritative for tagged artifacts).
 - GitHub Actions: `build.yml` (build/test), `commitlint.yml`, `release-please.yml`, `release.yml`.
+- `task build:release VERSION=x.y.z` produces a tag-equivalent local release jar; `task publish` requires platform tokens and should be used intentionally.
