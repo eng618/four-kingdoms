@@ -27,11 +27,16 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Install Task
+        uses: go-task/setup-task@v2
+        with:
+          version: 3.x
+
       - name: Make gradlew executable
         run: chmod +x gradlew
 
       - name: Build & test (dev version)
-        run: ./gradlew compileJava spotlessCheck check build -Pmod_version=0.0.0-dev+${GITHUB_SHA::7} --stacktrace
+        run: task build:dev
 
       - name: Upload mod jar
         if: success()

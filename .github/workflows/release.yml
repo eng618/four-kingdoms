@@ -45,11 +45,16 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      - name: Install Task
+        uses: go-task/setup-task@v2
+        with:
+          version: 3.x
+
       - name: Make gradlew executable
         run: chmod +x gradlew
 
       - name: Build release jar
-        run: ./gradlew build -Pmod_version=${{ steps.version.outputs.version }} --stacktrace
+        run: task build:release VERSION=${{ steps.version.outputs.version }}
 
       - name: Publish to GitHub Release
         uses: softprops/action-gh-release@v3
@@ -70,6 +75,4 @@ jobs:
       - name: Publish to Modrinth / CurseForge
         # Tokens come from job-level env (see above); the step runs if either platform is configured.
         if: ${{ env.MODRINTH_TOKEN != '' || env.CURSEFORGE_TOKEN != '' }}
-        env:
-          VERSION: ${{ steps.version.outputs.version }}
-        run: ./gradlew publishMods -Pmod_version=$VERSION --stacktrace
+        run: task publish VERSION=${{ steps.version.outputs.version }}
