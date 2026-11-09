@@ -1,0 +1,267 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+dotenv: [".env"]
+
+vars:
+  GRADLE: '{{if eq OS "windows"}}gradlew.bat{{else}}./gradlew{{end}}'
+  MOD_ID:
+    sh: grep -E '^mod_id=' gradle.properties | cut -d'=' -f2 2>/dev/null || echo "four_kingdoms"
+  MOD_NAME:
+    sh: grep -E '^mod_name=' gradle.properties | cut -d'=' -f2 2>/dev/null || echo "Four Kingdoms"
+  MOD_VERSION:
+    sh: grep -E '^mod_version=' gradle.properties | cut -d'=' -f2 2>/dev/null || echo "1.0.0"
+  MC_VERSION:
+    sh: grep -E '^minecraft_version=' gradle.properties | cut -d'=' -f2 2>/dev/null || echo "1.21.1"
+  NEO_VERSION:
+    sh: grep -E '^neo_version=' gradle.properties | cut -d'=' -f2 2>/dev/null || echo "21.1.247"
+  GIT_SHA:
+    sh: git rev-parse --short HEAD 2>/dev/null || echo "unknown"
+  VERSION: '{{.VERSION | default .MOD_VERSION}}'
+  DEV_VERSION: '0.0.0-dev+{{.GIT_SHA}}'
+
+tasks:
+  default:
+    desc: List all available tasks
+    silent: true
+    cmds:
+      - task --list
+
+  info:
+    desc: Display mod metadata and environment details
+    silent: true
+    cmds:
+      - echo "Mod           {{.MOD_NAME}} ({{.MOD_ID}})"
+      - echo "Version       {{.MOD_VERSION}}"
+      - echo "Minecraft     {{.MC_VERSION}}"
+      - echo "NeoForge      {{.NEO_VERSION}}"
+      - echo "Java Target   21"
+      - echo "Git Commit    {{.GIT_SHA}}"
+      - echo "Dev Version   {{.DEV_VERSION}}"
+
+  # -----------------------------------------------------------------------------
+  # Setup & Dependencies
+  # -----------------------------------------------------------------------------
+
+  setup:
+    desc: Set up the project for development (permissions, dependencies, IDE sources)
+    aliases: [init]
+    run: once
+    summary: |
+      Prepares the workspace for development by making ./gradlew executable,
+      resolving dependencies, and downloading decompiled Minecraft/NeoForge sources
+      and javadocs for IDE navigation.
+    cmds:
+      - task: deps
+      - task: deps:sources
+
+  deps:
+    desc: Download and refresh Gradle and NeoForge dependencies
+    aliases: [dependencies]
+    cmds:
+      - cmd: chmod +x gradlew
+        platforms: [linux, darwin]
+      - "{{.GRADLE}} --refresh-dependencies {{.CLI_ARGS}}"
+
+  deps:sources:
+    desc: Download Minecraft and NeoForge decompiled sources and javadocs for IDE navigation
+    cmds:
+      - "{{.GRADLE}} idea {{.CLI_ARGS}}"
+
+  wrapper:
+    desc: Validate or update the Gradle wrapper
+    cmds:
+      - "{{.GRADLE}} wrapper {{.CLI_ARGS}}"
+
+  # -----------------------------------------------------------------------------
+  # Building & Compiling
+  # -----------------------------------------------------------------------------
+
+  compile:
+    desc: Compile Java classes (src/main/java)
+    aliases: [compileJava]
+    cmds:
+      - "{{.GRADLE}} compileJava {{.CLI_ARGS}}"
+
+  build:
+    desc: Build the mod JAR and run static verification checks
+    aliases: [b]
+    summary: |
+      Runs Spotless checks, static verification, compiles Java classes,
+      and packages the mod into a production JAR in build/libs/.
+    cmds:
+      - "{{.GRADLE}} build {{.CLI_ARGS}}"
+
+  build:dev:
+    desc: Build mod JAR using short commit SHA (mirrors GitHub CI build)
+    summary: |
+      Builds a developer JAR artifact versioned as 0.0.0-dev+<sha>.
+      Exactly reproduces the GitHub Actions 'Build & Test' CI workflow.
+    cmds:
+      - "{{.GRADLE}} compileJava spotlessCheck check build -Pmod_version={{.DEV_VERSION}} --stacktrace {{.CLI_ARGS}}"
+
+  build:release:
+    desc: Build release JAR with specific version (e.g. task build:release VERSION=1.2.0)
+    summary: |
+      Builds a release JAR with an explicit version.
+      Defaults to mod_version from gradle.properties if VERSION is omitted.
+
+      Usage:
+        task build:release
+        task build:release VERSION=1.0.1
+    cmds:
+      - "{{.GRADLE}} build -Pmod_version={{.VERSION}} --stacktrace {{.CLI_ARGS}}"
+
+  jar:
+    desc: Package mod classes into a JAR file without running check tasks
+    cmds:
+      - "{{.GRADLE}} jar {{.CLI_ARGS}}"
+
+  # -----------------------------------------------------------------------------
+  # Development & Runtime
+  # -----------------------------------------------------------------------------
+
+  dev:
+    desc: Launch Minecraft client with Four Kingdoms mod in development environment
+    aliases: [run, "run:client"]
+    summary: |
+      Launches the Minecraft 1.21.1 game client with NeoForge and the Four Kingdoms
+      mod active. GameTests for the 'four_kingdoms' namespace are enabled.
+
+      Usage:
+        task dev
+        task dev -- --info
+    cmds:
+      - "{{.GRADLE}} runClient {{.CLI_ARGS}}"
+
+  run:server:
+    desc: Launch dedicated headless Minecraft test server with Four Kingdoms mod
+    summary: |
+      Launches a dedicated headless Minecraft server (--nogui) with Four Kingdoms
+      installed to test multiplayer gameplay and server compatibility.
+    cmds:
+      - "{{.GRADLE}} runServer {{.CLI_ARGS}}"
+
+  data:
+    desc: Run NeoForge data generators to generate recipes, models, and tags into src/generated/
+    aliases: ["run:data", "data:generate"]
+    summary: |
+      Executes NeoForge data generators to process recipes, item/block models,
+      advancements, and loot tables into src/generated/resources/.
+    cmds:
+      - "{{.GRADLE}} runData {{.CLI_ARGS}}"
+
+  # -----------------------------------------------------------------------------
+  # Linting & Formatting
+  # -----------------------------------------------------------------------------
+
+  lint:
+    desc: Validate Java code style and check for unused imports using Spotless
+    cmds:
+      - "{{.GRADLE}} spotlessCheck {{.CLI_ARGS}}"
+
+  format:
+    desc: Auto-format Java sources and clean unused imports using Spotless
+    aliases: [fmt, fix, "lint:fix"]
+    cmds:
+      - "{{.GRADLE}} spotlessApply {{.CLI_ARGS}}"
+
+  format:check:
+    desc: Check if Java code complies with formatting rules (alias for lint)
+    cmds:
+      - task: lint
+
+  lint:commits:
+    desc: Validate commit messages against Conventional Commits specification
+    aliases: [commitlint]
+    summary: |
+      Checks the most recent commit message against commitlint.config.mjs rules.
+
+      Usage:
+        task lint:commits
+        task lint:commits -- --from=HEAD~3
+    cmds:
+      - npx --yes @commitlint/cli --last {{.CLI_ARGS}}
+
+  # -----------------------------------------------------------------------------
+  # Testing & Verification
+  # -----------------------------------------------------------------------------
+
+  test:
+    desc: Run unit tests and NeoForge GameTests
+    aliases: [t]
+    cmds:
+      - "{{.GRADLE}} test {{.CLI_ARGS}}"
+
+  check:
+    desc: Run static code verification and Spotless checks
+    cmds:
+      - "{{.GRADLE}} check {{.CLI_ARGS}}"
+
+  validate:
+    desc: Replicate full CI pipeline locally (compile, lint, check, test, build)
+    aliases: [ci]
+    summary: |
+      Replicates the entire GitHub Actions pull request validation pipeline:
+      1. Java formatting and style checks (Spotless)
+      2. Unit tests and verification
+      3. Full dev-version build compilation
+    cmds:
+      - task: lint
+      - task: test
+      - task: build:dev
+
+  # -----------------------------------------------------------------------------
+  # Cleaning
+  # -----------------------------------------------------------------------------
+
+  clean:
+    desc: Clean Gradle build artifacts
+    cmds:
+      - "{{.GRADLE}} clean {{.CLI_ARGS}}"
+
+  clean:generated:
+    desc: Remove generated data resources (src/generated/)
+    cmds:
+      - rm -rf src/generated/
+
+  clean:logs:
+    desc: Clean Minecraft runtime logs and crash reports in run/
+    cmds:
+      - rm -rf run/logs run/crash-reports
+
+  clean:all:
+    desc: Deep clean build artifacts, Gradle caches, generated resources, and runtime logs
+    summary: |
+      Performs an exhaustive clean:
+      - Gradle build output (build/)
+      - Generated data (src/generated/)
+      - Runtime Minecraft logs & crash reports (run/logs/, run/crash-reports/)
+      - Gradle caches (.gradle/, bin/, out/)
+    cmds:
+      - task: clean
+      - task: clean:generated
+      - task: clean:logs
+      - rm -rf .gradle build bin out
+
+  # -----------------------------------------------------------------------------
+  # Publishing & Distribution
+  # -----------------------------------------------------------------------------
+
+  publish:
+    desc: Publish mod JAR to Modrinth and/or CurseForge (requires platform tokens)
+    summary: |
+      Publishes the built mod JAR to Modrinth and/or CurseForge.
+      Requires MODRINTH_TOKEN (and MODRINTH_PROJECT_ID) or CURSEFORGE_TOKEN
+      (and CURSEFORGE_PROJECT_ID) to be set in your environment or .env file.
+    preconditions:
+      - sh: 'test -n "$MODRINTH_TOKEN" || test -n "$CURSEFORGE_TOKEN"'
+        msg: "Missing release credentials: set MODRINTH_TOKEN or CURSEFORGE_TOKEN in your environment or .env file."
+    cmds:
+      - "{{.GRADLE}} publishMods -Pmod_version={{.VERSION}} --stacktrace {{.CLI_ARGS}}"
+
+  publish:local:
+    desc: Publish mod JAR artifact to local Maven repository (~/.m2/repository)
+    cmds:
+      - "{{.GRADLE}} publishToMavenLocal -Pmod_version={{.VERSION}} {{.CLI_ARGS}}"

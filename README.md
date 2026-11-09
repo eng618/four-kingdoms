@@ -128,16 +128,32 @@ Create recipe JSON files in `src/main/resources/data/four_kingdoms/recipe/`.
 
 ## ⚡ Build & Run Commands
 
-| Task | Command | Description |
-| :--- | :--- | :--- |
-| **Install Dependencies** | `./gradlew --refresh-dependencies` | Downloads & resolves Java/NeoForge dependencies |
-| **Compile Code** | `./gradlew compileJava` | Compiles Java classes in `src/main/java` |
-| **Check Linting** | `./gradlew spotlessCheck` | Validates code formatting, unused imports, & style |
-| **Auto-Format Code** | `./gradlew spotlessApply` | Automatically formats all Java source files |
-| **Run Static Analysis** | `./gradlew check` | Runs Spotless and static code verification |
-| **Test Client** | `./gradlew runClient` | Launches Minecraft client with the mod loaded |
-| **Build JAR** | `./gradlew build` | Generates compiled `.jar` artifact in `build/libs/` |
-| **Test Server** | `./gradlew runServer` | Launches dedicated Minecraft test server |
+You can run project lifecycles using [Task](https://taskfile.dev) (`task <command>`) or the Gradle wrapper directly (`./gradlew <command>`):
+
+| Lifecycle | Task Command | Direct Gradle Command | Description |
+| :--- | :--- | :--- | :--- |
+| **Environment Info** | `task info` | — | Display mod metadata, versions, and environment |
+| **Project Setup** | `task setup` | `./gradlew --refresh-dependencies idea` | Sets permissions, resolves dependencies, and configures IDE sources |
+| **Install Dependencies** | `task deps` | `./gradlew --refresh-dependencies` | Downloads & resolves Java/NeoForge dependencies |
+| **IDE Sources** | `task deps:sources` | `./gradlew idea` | Downloads decompiled Minecraft/NeoForge sources & javadocs |
+| **Compile Code** | `task compile` | `./gradlew compileJava` | Compiles Java classes in `src/main/java` |
+| **Check Linting** | `task lint` | `./gradlew spotlessCheck` | Validates code formatting, unused imports, & style |
+| **Auto-Format Code** | `task format` | `./gradlew spotlessApply` | Automatically formats all Java source files |
+| **Lint Commits** | `task lint:commits` | `npx @commitlint/cli --last` | Validates commit messages with Conventional Commits |
+| **Run Static Analysis** | `task check` | `./gradlew check` | Runs Spotless and static code verification |
+| **Run Tests** | `task test` | `./gradlew test` | Runs unit tests and NeoForge GameTests |
+| **Validate (CI)** | `task validate` (or `ci`) | `./gradlew compileJava spotlessCheck check build` | Runs full CI test, lint, and build pipeline locally |
+| **Test Client (Dev)** | `task dev` (or `run`) | `./gradlew runClient` | Launches Minecraft client with the mod loaded |
+| **Test Server** | `task run:server` | `./gradlew runServer` | Launches dedicated headless Minecraft test server |
+| **Generate Data** | `task data` | `./gradlew runData` | Generates data, recipes, models & tags into `src/generated/` |
+| **Build JAR** | `task build` | `./gradlew build` | Generates compiled `.jar` artifact in `build/libs/` |
+| **Build Dev JAR** | `task build:dev` | `./gradlew build -Pmod_version=...` | Builds dev JAR tagged with git commit hash |
+| **Build Release JAR** | `task build:release` | `./gradlew build -Pmod_version=...` | Builds release JAR (e.g. `task build:release VERSION=1.2.0`) |
+| **Package JAR** | `task jar` | `./gradlew jar` | Packages JAR file directly without check tasks |
+| **Clean Build** | `task clean` | `./gradlew clean` | Cleans Gradle build artifacts |
+| **Deep Clean** | `task clean:all` | — | Purges build trees, Gradle caches, generated data, & logs |
+| **Publish Mods** | `task publish` | `./gradlew publishMods` | Publishes JAR to Modrinth & CurseForge (when tokens are set) |
+| **Publish Local** | `task publish:local` | `./gradlew publishToMavenLocal` | Publishes JAR artifact to local Maven repository |
 
 ---
 
@@ -149,6 +165,7 @@ Create recipe JSON files in `src/main/resources/data/four_kingdoms/recipe/`.
   - *macOS (Homebrew):* `brew install openjdk@21`
   - *Verify:* `java -version`
 - **Gradle Wrapper:** Automatically included in the workspace repository via `./gradlew`. No manual Gradle installation required.
+- **Task (go-task):** Task runner for project lifecycle automation. Version pinned in `.tool-versions` (`asdf install`, `mise install`, or `brew install go-task`).
 
 ### 2. Recommended VS Code Extensions
 
