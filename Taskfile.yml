@@ -189,7 +189,7 @@ tasks:
   # -----------------------------------------------------------------------------
 
   test:
-    desc: Run unit tests and NeoForge GameTests
+    desc: Run unit tests (JUnit)
     aliases: [t]
     cmds:
       - "{{.GRADLE}} test {{.CLI_ARGS}}"
@@ -205,10 +205,11 @@ tasks:
     summary: |
       Replicates the entire GitHub Actions pull request validation pipeline:
       1. Java formatting and style checks (Spotless)
-      2. Unit tests and verification
+      2. Unit tests and static verification (check/test)
       3. Full dev-version build compilation
     cmds:
       - task: lint
+      - task: check
       - task: test
       - task: build:dev
 

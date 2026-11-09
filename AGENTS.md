@@ -8,7 +8,6 @@ NeoForge mod for Minecraft 1.21.1 (`mod_id=four_kingdoms`). Java 21, Gradle (wra
 - `task run:server` – headless server (`./gradlew runServer`)
 - `task lint` / `task format` – Spotless check/apply
 - `task test` – tests (`./gradlew test`)
-- `task test:game` – NeoForge GameTests headless (`./gradlew runGameTestServer`)
 - `task validate` – local CI-style validation (format/check/build/tests as configured)
 - `task build` – build JAR
 - `task data` – run data generators

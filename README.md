@@ -25,7 +25,7 @@ A rich **Minecraft 1.21.1 NeoForge** mod introducing four distinct lore-rich kin
 - **Minecraft Version:** `1.21.1`
 - **Mod Loader:** `NeoForge 21.1.247`
 - **Java Development Kit (JDK):** `Java 21`
-- **Build Tool:** `Gradle 8.10` with `ModDevGradle 2.0.75`
+- **Build Tool:** Gradle Wrapper `9.8.2` with `net.neoforged.moddev` `2.0.148`
 
 ---
 
@@ -141,8 +141,8 @@ You can run project lifecycles using [Task](https://taskfile.dev) (`task <comman
 | **Auto-Format Code** | `task format` | `./gradlew spotlessApply` | Automatically formats all Java source files |
 | **Lint Commits** | `task lint:commits` | `npx @commitlint/cli --last` | Validates commit messages with Conventional Commits |
 | **Run Static Analysis** | `task check` | `./gradlew check` | Runs Spotless and static code verification |
-| **Run Tests** | `task test` | `./gradlew test` | Runs unit tests and NeoForge GameTests |
-| **Validate (CI)** | `task validate` (or `ci`) | `./gradlew compileJava spotlessCheck check build` | Runs full CI test, lint, and build pipeline locally |
+| **Run Tests** | `task test` | `./gradlew test` | Runs JUnit unit tests (`src/test/java`) |
+| **Validate (CI)** | `task validate` (or `ci`) | lint + check/test + dev build | Runs local CI-style validation (`task validate`) |
 | **Test Client (Dev)** | `task dev` (or `run`) | `./gradlew runClient` | Launches Minecraft client with the mod loaded |
 | **Test Server** | `task run:server` | `./gradlew runServer` | Launches dedicated headless Minecraft test server |
 | **Generate Data** | `task data` | `./gradlew runData` | Generates data, recipes, models & tags into `src/generated/` |
@@ -181,6 +181,18 @@ You can run project lifecycles using [Task](https://taskfile.dev) (`task <comman
 - **Framework:** NeoForge 1.21.1
 
 ---
+
+
+## Release / versioning behavior
+
+- `gradle.properties` contains the baseline development `mod_version`.
+- **Release Please** (`release-type: simple`) manages release PRs/tags and the manifest (`.release-please-manifest.json`); it does **not** automatically rewrite `gradle.properties`.
+- The **Release** workflow derives the version from the git tag (`vX.Y.Z`) and builds with `-Pmod_version=X.Y.Z`, so published artifacts use the tag version. Keep `gradle.properties`/manifest aligned when preparing releases if you want the repo baseline to match.
+
+## Generated data
+
+- NeoForge data generation outputs to `src/generated/resources/` (see `task data` / `runData`).
+- `src/generated/` is gitignored in this repository by default. Commit generated outputs only if your team intentionally wants them versioned; otherwise regenerate as needed.
 
 ## 🚢 Releasing
 
